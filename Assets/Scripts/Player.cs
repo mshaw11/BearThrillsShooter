@@ -52,9 +52,6 @@ public class Player : MonoBehaviour
 
         rigidBody.rotation = angle;
 
-        //Debug.Log(angle);
-        //Debug.DrawLine(new Vector3(pos.x, pos.y, -1), new Vector3(cameraPosition.x, cameraPosition.y, -1), Color.red, 2.5f);
-
         float horizontal = Input.GetAxis("Horizontal") * speedMultiplier;
         float vertical = Input.GetAxis("Vertical") * speedMultiplier;
 
@@ -88,7 +85,6 @@ public class Player : MonoBehaviour
             Vector2 point = ray.GetPoint(rayDistance);
             crosshairs.transform.position = point;
         }
-
 
         if (Input.GetMouseButtonDown(0))
         {

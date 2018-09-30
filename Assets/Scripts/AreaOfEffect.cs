@@ -15,12 +15,12 @@ public class AreaOfEffect : MonoBehaviour {
 
 
     Camera viewCamera;
-    public enum EffectType // your custom enumeration
+    public enum EffectType
     {
         Instant,
         Projectile
     };
-    public AreaOfEffect.EffectType aoeType = EffectType.Instant;
+    public EffectType aoeType = EffectType.Instant;
 
     public ParticleSystem ps;
     public GameObject explosionAnimation;
@@ -45,6 +45,7 @@ public class AreaOfEffect : MonoBehaviour {
 
     public virtual void Explode()
     {
+        //If Instant detonation, apply force to objects within the radius
         if (aoeType == EffectType.Instant)
         {
             Ray ray = viewCamera.ScreenPointToRay(Input.mousePosition);
@@ -70,13 +71,10 @@ public class AreaOfEffect : MonoBehaviour {
                     }
                 }
             }
-            //Explosion effect
-            
-           
         }
+        //Else simply instantiate the explosion and let it apply the force from within that gameobject
         else
         {
-            //Explosion effect
             Instantiate(explosionAnimation, transform.position, transform.rotation);
 
         }
