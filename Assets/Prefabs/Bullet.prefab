@@ -89,9 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb7ddf43fc460e4fad1cb702f9b5979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 50048450780304322}
-  damage: 1
-  range: 10
+  rigidBody: {fileID: 50048450780304322}
+  range: 100
 --- !u!212 &212867892673860818
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -399,7 +399,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590d27f4c3905534b986af5afcb6e428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areaOfEffect: {fileID: 762554751}
   cooldown: 1
   strength: 4
 --- !u!1 &807739723
@@ -1353,6 +1352,16 @@ Prefab:
     - target: {fileID: 4505357514695010, guid: 41dd18ffb3971a8459e8ab0bc4a9d524, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114285659376574402, guid: 41dd18ffb3971a8459e8ab0bc4a9d524,
+        type: 2}
+      propertyPath: range
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114746778986111122, guid: 41dd18ffb3971a8459e8ab0bc4a9d524,
+        type: 2}
+      propertyPath: range
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41dd18ffb3971a8459e8ab0bc4a9d524, type: 2}
