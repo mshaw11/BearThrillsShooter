@@ -2,17 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
 
-    public float speedMultiplier;
-    public float sprintMultiplier;
-    public float jumpMultiplier;
-    public float jumpCooldown;
-    public float throwForce = 45f;
+    [SerializeField]
+    private float speedMultiplier;
 
-    public Crosshairs crosshairs;
-    public GameObject grenadePrefab;
-    public GameObject AreaOfEffectType;
+    [SerializeField]
+    private float sprintMultiplier;
+
+    [SerializeField]
+    private float jumpMultiplier;
+
+    [SerializeField]
+    private float jumpCooldown;
+
+    [SerializeField]
+    private Crosshairs crosshairs;
+
+    [SerializeField]
+    private AbilityHandler AbilityHandler;
+
 
     private float nextJump;
     private float angle;
@@ -21,7 +31,8 @@ public class Player : MonoBehaviour {
     Camera viewCamera;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         rigidBody = GetComponent<Rigidbody2D>();
         nextJump = 0.0f;
         angle = 0.0f;
@@ -76,37 +87,18 @@ public class Player : MonoBehaviour {
         {
             Vector2 point = ray.GetPoint(rayDistance);
             crosshairs.transform.position = point;
-            //crosshairs.DetectTargets(ray);
-            //Debug.DrawRay(transform.position, forward, Color.green);
         }
 
-        if(Input.GetMouseButtonDown(0))
+
+        if (Input.GetMouseButtonDown(0))
         {
-            ThrowGrenade();
+            AbilityHandler.UseAbility(0, GetComponent<Collider2D>(), transform.position, crosshairs.transform.position);
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            AOE();
+
+            AbilityHandler.UseAbility(1, GetComponent<Collider2D>(), transform.position, crosshairs.transform.position);
         }
-
-    }
-
-    void ThrowGrenade()
-    {
-        Vector3 pos = transform.position;
-        pos.z -= 3;
-        GameObject grenade = Instantiate(grenadePrefab, pos, Quaternion.identity);
-        Rigidbody2D rb = grenade.GetComponent<Rigidbody2D>();
-        rb.AddForce((crosshairs.transform.position - transform.position) * throwForce);
-    }
-
-    void AOE()
-    {
-        Vector3 pos = transform.position;
-        pos.z -= 3;
-        Instantiate(AreaOfEffectType, pos, Quaternion.identity);
-        AreaOfEffectType.GetComponent<Rigidbody2D>();
-        
     }
 }

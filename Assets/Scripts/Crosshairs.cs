@@ -9,15 +9,18 @@ public class Crosshairs : MonoBehaviour {
         originalDotColour = dot.color;
 	}
 
-    public LayerMask targetMask;
-    public SpriteRenderer dot;
-    public Color dotHighlightColour;
+    [SerializeField]
+    private LayerMask targetMask;
+    [SerializeField]
+    private SpriteRenderer dot;
+    [SerializeField]
+    private Color dotHighlightColour;
+
     Color originalDotColour;
 	
 	// Update is called once per frame
 	void Update () {
         transform.Rotate(Vector3.forward * 40 * Time.deltaTime);
-
 	}
 
     public void DetectTargets(Ray ray)

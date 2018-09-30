@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class AreaOfEffect : MonoBehaviour {
 
+    [SerializeField]
+    private float radius = 5f;
 
-    public float radius = 5f;
-    public float force = 700f;
-    public float delay = 0f;
+    [SerializeField]
+    private float force = 700f;
+
+    [SerializeField]
+    private float delay = 0f;
 
 
     Camera viewCamera;

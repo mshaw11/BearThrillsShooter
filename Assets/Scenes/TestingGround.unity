@@ -371,7 +371,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -26733255
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cb3816a3bfe4d3e44ae9c56297f31b06, type: 3}
   m_Color: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 1}
@@ -59941,11 +59941,8 @@ MonoBehaviour:
   sprintMultiplier: 2
   jumpMultiplier: 1
   jumpCooldown: 1
-  throwForce: 100
   crosshairs: {fileID: 536214198}
-  grenadePrefab: {fileID: 1778294177560494, guid: 3c7db374b5492a0448eee9be612f8047,
-    type: 2}
-  AreaOfEffectType: {fileID: 1778294177560494, guid: 63a44ecdef0522042adeab48c6262401,
+  AbilityHandler: {fileID: 114195915463959762, guid: 7a31fa57959385847ae0581c61755c6f,
     type: 2}
 --- !u!50 &2001577383
 Rigidbody2D:
