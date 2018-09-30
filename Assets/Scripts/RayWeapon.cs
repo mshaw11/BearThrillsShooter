@@ -1,25 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts;
 
 public class RayWeapon : MonoBehaviour
 {
-
-   private enum DamageType
-    {
-        WATER,
-        FIRE,
-        RADIATION,
-        PHYSICAL
-    }
-
-    public LayerMask whatToHit;
-    public GameObject bullet;
-    public float fireRate = 10;
-    public float damage = 100;
-    public float range = 10;
-    public float speed = 20;
-    public bool playerControlled = true;
+    [SerializeField]
+    private LayerMask whatToHit;
+    [SerializeField]
+    private GameObject bullet;
+    [SerializeField]
+    private float fireRate = 10;
+    [SerializeField]
+    private float damage = 100;
+    [SerializeField]
+    private float range = 10;
+    [SerializeField]
+    private float speed = 20;
+    [SerializeField]
+    private bool playerControlled = true;
     
     [SerializeField]
     private DamageType damageType = DamageType.PHYSICAL;
@@ -63,11 +62,11 @@ public class RayWeapon : MonoBehaviour
             if (hit.collider != null)
             {
                 // Set the ray max distance so that it does not pass further than the hit object
-                bulletRay.range = hit.distance;
+                bulletRay.setRange(hit.distance);
                 Enemy enemy = hit.collider.GetComponent<Enemy>();
                 if (enemy != null)
                 {
-                    enemy.takeDamage(damage);
+                    enemy.takeDamage(damage, damageType);
                 }
             }
 
@@ -80,8 +79,6 @@ public class RayWeapon : MonoBehaviour
         Instantiate(bullet, firePoint, transform.rotation);
 
         BulletRay bulletRay = bullet.GetComponent<BulletRay>();
-        bulletRay.speed = speed;
-        bulletRay.range = range;
-
+        bulletRay.updateVariables(speed, range);
     }
 }

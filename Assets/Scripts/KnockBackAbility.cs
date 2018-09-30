@@ -4,53 +4,58 @@ using UnityEngine;
 
 public class KnockBackAbility : MonoBehaviour {
 
-    public PolygonCollider2D areaOfEffect;
-    public float cooldown = 1.0f;
-    public float strength = 4.0f;
+    private PolygonCollider2D areaOfEffect;
 
-    //public GameObject effect;
+    [SerializeField]
+    private float cooldown = 1.0f;
+    [SerializeField]
+    private float strength = 4.0f;
+
+    // The size of the array used to check collisions within area of effect
+    private int maxAmountOfColliders = 100;
 
     private float timeToFire = 0;
-	// Use this for initialization
-	void Start () {
-        
-	}
+    private Collider2D[] colliders;
+    private ContactFilter2D contactFilter;
+    // Use this for initialization
+    void Start () {
+        areaOfEffect = GetComponent<PolygonCollider2D>();
+        if (areaOfEffect == null)
+        {
+            throw new System.Exception("Game object does not have line PolygonCollider2D component");
+        }
+
+        colliders = new Collider2D[maxAmountOfColliders];
+        contactFilter = new ContactFilter2D();
+    }
 
     private void Update()
     {
         timeToFire += Time.deltaTime;
 
-        Debug.Log("jeses " + timeToFire);
-          if (Input.GetButton("Fire1") && timeToFire > cooldown)
+        if (Input.GetButton("Fire1") && timeToFire > cooldown)
         {
             timeToFire = 0;
             knockBack();
         }
-
-
-
     }
 
-    void knockBack()
+    public void knockBack()
     {
-       // var balls = Instantiate(effect, transform.parent.position,  transform.rotation, transform.parent);
-      
-        Collider2D[] colliders = new Collider2D[100];
-        ContactFilter2D contactFilter = new ContactFilter2D();
+       // Update the collision array. Returns amount of collisions
+        int collisions = areaOfEffect.OverlapCollider(contactFilter, colliders);
 
-        int test = areaOfEffect.OverlapCollider(contactFilter, colliders);
-
-
-        Debug.Log(test);
-        for (int i = 0; i <test; i++)
+        for (int i = 0; i < collisions; i++)
         {
             Enemy enemy = colliders[i].GetComponent<Enemy>();
             if (enemy != null)
             {
-                enemy.knockBack(transform.position, strength);
+                // Dynamic knock back
+                Vector2 currentPositition = enemy.transform.position;
+                Vector2 directionOfPush = gameObject.transform.position;
+                Vector2 knockbackPosition = currentPositition + (currentPositition - directionOfPush).normalized * strength;
+                enemy.GetComponent<Rigidbody2D>().AddForce(knockbackPosition, ForceMode2D.Impulse);
             }
         }
-
-        Debug.Log("Amount of collisions - " + test);
     }
 }

@@ -1,37 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Assets.Scripts;
 public class ProjectileWeapon : MonoBehaviour
 {
 
-   private enum DamageType
-    {
-        WATER,
-        FIRE,
-        RADIATION,
-        PHYSICAL
-    }
+    [SerializeField]
+    private GameObject bullet;
+    [SerializeField]
+    private float fireRate = 10;
+    [SerializeField]
+    private float damage = 1;
+    [SerializeField]
+    private float range = 10;
+    [SerializeField]
+    private float speed = 20;
+    [SerializeField]
+    private bool playerControlled = true;
 
-    public LayerMask whatToHit;
-    public GameObject bullet;
-    public float fireRate = 10;
-    public float damage = 1;
-    public float range = 10;
-    public float speed = 20;
-    public bool playerControlled = true;
-    
     [SerializeField]
     private DamageType damageType = DamageType.PHYSICAL;
  
     private float timeToFire = 0;
     private bool projectileWeapon = false;
 
-    LineRenderer lr;
+    private void Start()
+    {
+        if (bullet == null)
+        {
+            throw new System.Exception("Game object does not have Bullet specified");
+        }
+    }
 
-    // Use this for initialization
-
-    
     // Update is called once per frame
     void Update()
     {
@@ -59,11 +59,7 @@ public class ProjectileWeapon : MonoBehaviour
 
     void CreateBullet(Vector2 firePoint)
     {
-        Instantiate(bullet, firePoint, transform.rotation);
-
-        BulletProjectile bulletProjectile = bullet.GetComponent<BulletProjectile>();
-        
+        BulletProjectile bulletProjectile = Instantiate(bullet, firePoint, transform.rotation).GetComponent<BulletProjectile>();
         bulletProjectile.UpdateVariables(speed, damage, range);
-        
     }
 }

@@ -1,27 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts;
 
 public class Enemy : MonoBehaviour {
 
-    public float health = 100;
+    [SerializeField]
+    private float health = 100;
+    private DamageType weakness = DamageType.PHYSICAL; 
 
-    public void takeDamage(float damage)
+    public void takeDamage(float damage, DamageType damageType)
     {
-        health = health - damage;
+
+        float damageMultiplier = 1.0f;
+        if (damageType.Equals(weakness))
+        {
+            damageMultiplier += 0.5f;
+        }
+        health = health - (damage * damageMultiplier);
 
         if (health < 0)
         {
             Die();
         }
-    }
-
-    public void knockBack(Vector2 direction, float force)
-    {
-        // Dynamic knock back
-        Vector2 currentPositition = transform.position;
-        Vector2 knockbackPosition = currentPositition + (currentPositition - direction).normalized *force;
-        GetComponent<Rigidbody2D>().AddForce(knockbackPosition, ForceMode2D.Impulse);
     }
 
     private void Die ()

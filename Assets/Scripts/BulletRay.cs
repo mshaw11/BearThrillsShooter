@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class BulletRay : MonoBehaviour {
 
-    public float speed = 20;
-    public float range = 100;
-    public Vector3 endPosition = Vector3.zero;
+    [SerializeField]
+    private float speed = 20;
+    [SerializeField]
+    private float range = 100;
 
     private Vector3 startPosition;
     private float lineLength;
@@ -20,10 +21,13 @@ public class BulletRay : MonoBehaviour {
         LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
         if (lineRenderer == null)
         {
-            throw new System.Exception("Game object does not have line render component");
+            throw new System.Exception("Game object does not have line renderer component");
         }
+
+        // This is the length of the line drawn which represents a single bullet
         lineLength = (lineRenderer.GetPosition(0) - lineRenderer.GetPosition(1)).magnitude;
     }
+
     // Update is called once per frame
     void Update () {
 
@@ -38,5 +42,21 @@ public class BulletRay : MonoBehaviour {
             Destroy(gameObject);
         }
 
+    }
+
+    public void setSpeed(float speed)
+    {
+        this.speed = speed;
+    }
+
+    public void setRange(float range)
+    {
+        this.range = range;
+    }
+
+    public void updateVariables(float speed, float range)
+    {
+        setSpeed(speed);
+        setRange(range);
     }
 }
