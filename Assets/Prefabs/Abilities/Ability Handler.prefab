@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4113db5cd81cba4eb689c485ead428d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Grenade: {fileID: 1778294177560494, guid: 3c7db374b5492a0448eee9be612f8047, type: 2}
-  AreaOfEffect: {fileID: 1778294177560494, guid: 63a44ecdef0522042adeab48c6262401,
+  grenadeAbility: {fileID: 1263619113649314, guid: bba4a666c012d96439e2330001cca5cf,
+    type: 2}
+  flameRingAbility: {fileID: 1173425370814394, guid: 41e0ee0452ea29848887873f1b542577,
     type: 2}

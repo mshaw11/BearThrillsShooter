@@ -1,43 +1,52 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts;
 
 public class AbilityHandler : MonoBehaviour {
 
-    private float throwForce = 50f;
+    [SerializeField]
+    private GameObject grenadeAbility;
 
     [SerializeField]
-    private GameObject Grenade;
+    public GameObject flameRingAbility;
 
-    [SerializeField]
-    private GameObject AreaOfEffect;
-
-    public void UseAbility(int i, Collider2D playerCollider, Vector3 playerPosition, Vector3 crosshairPosition)
+    private List<GameObject> abilities = new List<GameObject>();
+    private int currentAbility = 0;
+    private void Start()
     {
-        switch (i)
-        {
-            case 0:
-                ThrowGrenade(playerCollider, playerPosition, crosshairPosition);
-                break;
-            case 1:
-                AOE(crosshairPosition);
-                break;
-        }
+    
+        Instantiate(flameRingAbility);
+        grenadeAbility = Instantiate(grenadeAbility);
+
+
+        abilities.Add(grenadeAbility);
+        abilities.Add(flameRingAbility);
     }
 
-    void ThrowGrenade(Collider2D playerCollider, Vector2 player, Vector2 crosshairs)
+
+    public void UseAbility(Collider2D playerCollider, Vector3 playerPosition, Vector3 crosshairPosition)
     {
-        GameObject grenade = Instantiate(Grenade, player, Quaternion.identity);
-        Rigidbody2D rb = grenade.GetComponent<Rigidbody2D>();
-        Physics2D.IgnoreCollision(grenade.GetComponent<Collider2D>(), playerCollider);
-        rb.AddForce((crosshairs - player) * throwForce);
+    
+        abilities[currentAbility].GetComponent<AbilityBase>().useAbility(playerCollider, playerPosition, crosshairPosition);
+
     }
 
-    void AOE(Vector3 crosshair)
+    private void Update()
     {
-        Instantiate(AreaOfEffect, crosshair, Quaternion.identity);
-        AreaOfEffect.GetComponent<Rigidbody2D>();
+
+      
+            if (Input.GetAxis("Mouse ScrollWheel") > 0 && currentAbility < (abilities.Count -1))
+            {
+            currentAbility = (currentAbility + 1);
+            }
+            if (Input.GetAxis("Mouse ScrollWheel") < 0 && currentAbility != 0)
+            {
+            currentAbility = (currentAbility - 1);
+            }
+
     }
+
+
 
 }
-

@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        AbilityHandler = Instantiate(AbilityHandler);
         rigidBody = GetComponent<Rigidbody2D>();
         nextJump = 0.0f;
         angle = 0.0f;
@@ -85,16 +86,17 @@ public class Player : MonoBehaviour
             Vector2 point = ray.GetPoint(rayDistance);
             crosshairs.transform.position = point;
         }
-
+        
         if (Input.GetMouseButtonDown(0))
         {
-            AbilityHandler.UseAbility(0, GetComponent<Collider2D>(), transform.position, crosshairs.transform.position);
+            AbilityHandler.UseAbility(GetComponent<Collider2D>(), transform.position, crosshairs.transform.position);
         }
 
         if (Input.GetMouseButtonDown(1))
         {
 
-            AbilityHandler.UseAbility(1, GetComponent<Collider2D>(), transform.position, crosshairs.transform.position);
+            AbilityHandler.UseAbility(GetComponent<Collider2D>(), transform.position, crosshairs.transform.position);
         }
+        
     }
 }
