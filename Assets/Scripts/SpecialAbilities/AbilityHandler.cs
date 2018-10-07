@@ -9,10 +9,10 @@ public class AbilityHandler : MonoBehaviour {
     private GameObject grenadeAbility;
 
     [SerializeField]
-    public GameObject flameRingAbility;
+    private GameObject flameRingAbility;
 
     [SerializeField]
-    public GameObject knockBackAbility;
+    private GameObject knockBackAbility;
 
     private List<GameObject> abilities = new List<GameObject>();
     private int currentAbility = 0;
@@ -24,7 +24,7 @@ public class AbilityHandler : MonoBehaviour {
         knockBackAbility = Instantiate(knockBackAbility);
 
         abilities.Add(grenadeAbility);
-        abilities.Add(flameRingAbility);
+        abilities.Add(flameRingAbility); 
         abilities.Add(knockBackAbility);
     }
 
