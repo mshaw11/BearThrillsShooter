@@ -9,51 +9,47 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1832563259031252}
+  m_RootGameObject: {fileID: 1924906343157460}
   m_IsPrefabAsset: 1
---- !u!1 &1832563259031252
+--- !u!1 &1924906343157460
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4667849769969916}
-  - component: {fileID: 114195915463959762}
-  m_Layer: 0
-  m_Name: Ability Handler
+  - component: {fileID: 4526773422508352}
+  - component: {fileID: 114070546180188964}
+  m_Layer: 8
+  m_Name: KnockBackCone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4667849769969916
+--- !u!4 &4526773422508352
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1832563259031252}
-  m_LocalRotation: {x: 0, y: 0, z: 0.0010324252, w: 0.9999995}
-  m_LocalPosition: {x: -3.571271, y: -0.30456954, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_GameObject: {fileID: 1924906343157460}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.049, y: -0.535, z: -0.015860429}
+  m_LocalScale: {x: 5, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114195915463959762
+--- !u!114 &114070546180188964
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1832563259031252}
+  m_GameObject: {fileID: 1924906343157460}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4113db5cd81cba4eb689c485ead428d, type: 3}
+  m_Script: {fileID: 11500000, guid: 590d27f4c3905534b986af5afcb6e428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grenadeAbility: {fileID: 1263619113649314, guid: bba4a666c012d96439e2330001cca5cf,
-    type: 2}
-  flameRingAbility: {fileID: 1173425370814394, guid: 41e0ee0452ea29848887873f1b542577,
-    type: 2}
-  knockBackAbility: {fileID: 1924906343157460, guid: 1d0ddf4d87fd1a04daca088be4741656,
-    type: 2}
+  cooldown: 0
+  strength: 4

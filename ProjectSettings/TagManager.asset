@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - bulletTrail
+  - KnockBackCone
   layers:
   - Default
   - TransparentFX
