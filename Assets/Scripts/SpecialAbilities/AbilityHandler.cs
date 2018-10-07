@@ -11,23 +11,28 @@ public class AbilityHandler : MonoBehaviour {
     [SerializeField]
     public GameObject flameRingAbility;
 
+    [SerializeField]
+    public GameObject knockBackAbility;
+
     private List<GameObject> abilities = new List<GameObject>();
     private int currentAbility = 0;
     private void Start()
     {
-    
-        Instantiate(flameRingAbility);
-        grenadeAbility = Instantiate(grenadeAbility);
 
+        flameRingAbility = Instantiate(flameRingAbility);
+        grenadeAbility = Instantiate(grenadeAbility);
+        knockBackAbility = Instantiate(knockBackAbility);
 
         abilities.Add(grenadeAbility);
         abilities.Add(flameRingAbility);
+        abilities.Add(knockBackAbility);
     }
 
 
     public void UseAbility(Collider2D playerCollider, Vector3 playerPosition, Vector3 crosshairPosition)
     {
-    
+        Debug.Log(abilities.Count);
+        Debug.Log(currentAbility);
         abilities[currentAbility].GetComponent<AbilityBase>().useAbility(playerCollider, playerPosition, crosshairPosition);
 
     }

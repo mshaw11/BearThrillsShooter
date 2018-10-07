@@ -55,3 +55,5 @@ MonoBehaviour:
     type: 2}
   flameRingAbility: {fileID: 1173425370814394, guid: 41e0ee0452ea29848887873f1b542577,
     type: 2}
+  knockBackAbility: {fileID: 1924906343157460, guid: 1d0ddf4d87fd1a04daca088be4741656,
+    type: 2}

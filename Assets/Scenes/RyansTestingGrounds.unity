@@ -113,6 +113,48 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &146690823
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4526773422508352, guid: 1d0ddf4d87fd1a04daca088be4741656, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1.049
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526773422508352, guid: 1d0ddf4d87fd1a04daca088be4741656, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.535
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526773422508352, guid: 1d0ddf4d87fd1a04daca088be4741656, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.015860429
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526773422508352, guid: 1d0ddf4d87fd1a04daca088be4741656, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526773422508352, guid: 1d0ddf4d87fd1a04daca088be4741656, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526773422508352, guid: 1d0ddf4d87fd1a04daca088be4741656, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526773422508352, guid: 1d0ddf4d87fd1a04daca088be4741656, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526773422508352, guid: 1d0ddf4d87fd1a04daca088be4741656, type: 2}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1d0ddf4d87fd1a04daca088be4741656, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!4 &188591965
 Transform:
   m_ObjectHideFlags: 0
@@ -340,10 +382,9 @@ GameObject:
   m_Component:
   - component: {fileID: 762554750}
   - component: {fileID: 762554751}
-  - component: {fileID: 762554752}
   m_Layer: 8
   m_Name: KnockBackCone
-  m_TagString: Untagged
+  m_TagString: KnockBackCone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -388,19 +429,6 @@ PolygonCollider2D:
     - - {x: 1, y: 1}
       - {x: 0, y: 0}
       - {x: 1, y: -1}
---- !u!114 &762554752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 762554749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 590d27f4c3905534b986af5afcb6e428, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldown: 1
-  strength: 4
 --- !u!1 &807739723
 GameObject:
   m_ObjectHideFlags: 0

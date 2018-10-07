@@ -51,4 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0470cfca93b01a41bb6f7b13b2727a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldown: 0
   flameRing: {fileID: 1778294177560494, guid: 63a44ecdef0522042adeab48c6262401, type: 2}

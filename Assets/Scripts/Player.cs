@@ -87,11 +87,6 @@ public class Player : MonoBehaviour
             crosshairs.transform.position = point;
         }
         
-        if (Input.GetMouseButtonDown(0))
-        {
-            AbilityHandler.UseAbility(GetComponent<Collider2D>(), transform.position, crosshairs.transform.position);
-        }
-
         if (Input.GetMouseButtonDown(1))
         {
 

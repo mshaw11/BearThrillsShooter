@@ -9,48 +9,47 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1263619113649314}
+  m_RootGameObject: {fileID: 1924906343157460}
   m_IsPrefabAsset: 1
---- !u!1 &1263619113649314
+--- !u!1 &1924906343157460
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4241311456236612}
-  - component: {fileID: 114105827685006674}
-  m_Layer: 0
-  m_Name: GrenadeAbility
+  - component: {fileID: 4526773422508352}
+  - component: {fileID: 114070546180188964}
+  m_Layer: 8
+  m_Name: KnockBackCone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4241311456236612
+--- !u!4 &4526773422508352
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1263619113649314}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.4955515, y: 3.747126, z: -0.20033531}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_GameObject: {fileID: 1924906343157460}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.049, y: -0.535, z: -0.015860429}
+  m_LocalScale: {x: 5, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114105827685006674
+--- !u!114 &114070546180188964
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1263619113649314}
+  m_GameObject: {fileID: 1924906343157460}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 838c572c58cb25548955064a9fb154da, type: 3}
+  m_Script: {fileID: 11500000, guid: 590d27f4c3905534b986af5afcb6e428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 0
-  grenade: {fileID: 1778294177560494, guid: 3c7db374b5492a0448eee9be612f8047, type: 2}
-  throwForce: 50
+  strength: 4
