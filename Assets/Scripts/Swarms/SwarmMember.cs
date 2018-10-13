@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SwarmMember : MonoBehaviour {
@@ -34,9 +35,9 @@ public class SwarmMember : MonoBehaviour {
     {
         rigidBody.AddForce(Combine());
         //Limit force application
-        if (rigidBody.velocity.magnitude > 5)
+        if (rigidBody.velocity.magnitude > conf.maxVelocity)
         {
-            rigidBody.velocity = rigidBody.velocity.normalized * 5;
+            rigidBody.velocity = rigidBody.velocity.normalized * conf.maxVelocity;
         }
     }
 
@@ -47,17 +48,37 @@ public class SwarmMember : MonoBehaviour {
         return heading;
     }
 
-    Vector3 Cohesion()
+    Vector3 Cohesion(List<SwarmMember> neighboursShortList)
     {
         Vector3 cohesionVector = new Vector3();
         int countMembers = 0;
-        var neighbours = controller.GetNeighbours(this, conf.cohesionRadius);
+        var neighbours = controller.GetNeighboursUsingShortList(neighboursShortList, this, conf.cohesionRadius);
         if (neighbours.Count == 0)
             return cohesionVector;
         foreach(var member in neighbours)
         {
             if(IsInFOV(rigidBody.position))
             {
+                if (member == null)
+                {
+                    Debug.Log("Member is null!");
+                }
+                else
+                {
+                    if (member.rigidBody == null)
+                    {
+                        Debug.Log("rigid body is null!");
+                    }
+                    else
+                    {
+                        if (member.rigidBody.position == null)
+                        {
+                            Debug.Log("Position is null");
+                        }
+                    }
+                }
+
+
                 cohesionVector += (Vector3)member.rigidBody.position;
                 countMembers++;
             }
@@ -70,10 +91,10 @@ public class SwarmMember : MonoBehaviour {
         return cohesionVector;
     }
 
-    Vector3 Alignment()
+    Vector3 Alignment(List<SwarmMember> neighboursShortList)
     {
         Vector3 alignVector = new Vector3();
-        var members = controller.GetNeighbours(this, conf.alignmentRadius);
+        var members = controller.GetNeighboursUsingShortList(neighboursShortList, this, conf.alignmentRadius);
         if (members.Count == 0)
             return alignVector;
         foreach(var member in members)
@@ -84,10 +105,10 @@ public class SwarmMember : MonoBehaviour {
         return alignVector.normalized;
     }
 
-    Vector3 Separation()
+    Vector3 Separation(List<SwarmMember> neighboursShortList)
     {
         Vector3 separateVector = new Vector3();
-        var members = controller.GetNeighbours(this, conf.separationRadius);
+        var members = controller.GetNeighboursUsingShortList(neighboursShortList, this, conf.separationRadius);
         if (members.Count == 0)
             return separateVector;
 
@@ -105,7 +126,7 @@ public class SwarmMember : MonoBehaviour {
         return separateVector.normalized;
     }
 
-    //Vector3 Avoidance()
+    //Vector3 Avoidance(List<SwarmMember> neighboursShortList)
     //{
     //    Vector3 avoidVector = new Vector3();
     //    var enemyList = controller.GetEnemies(this, conf.avoidanceRadius);
@@ -126,11 +147,15 @@ public class SwarmMember : MonoBehaviour {
 
     virtual protected Vector3 Combine()
     {
+        var radii = new List<float>() { conf.cohesionRadius, conf.alignmentPriority, conf.separationPriority, conf.avoidancePriority };
+        var maxRadius = radii.Max();
+        var neighboursShortList = controller.GetNeighbours(this, maxRadius);
+
         Vector3 finalVec =
-            conf.cohesionPriority * Cohesion() +
+            conf.cohesionPriority * Cohesion(neighboursShortList) +
             conf.pathfindPriority * FollowSwarmLeader() +
-            conf.alignmentPriority * Alignment() +
-            conf.separationPriority * Separation();
+            conf.alignmentPriority * Alignment(neighboursShortList) +
+            conf.separationPriority * Separation(neighboursShortList);
             //conf.avoidancePriority * Avoidance();
 
         return finalVec;

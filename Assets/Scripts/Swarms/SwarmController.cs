@@ -55,6 +55,21 @@ public class SwarmController : MonoBehaviour {
         return neighboursFound;
     }
 
+    public List<SwarmMember> GetNeighboursUsingShortList(List<SwarmMember> shortList, SwarmMember member, float radius)
+    {
+        List<SwarmMember> neighboursFound = new List<SwarmMember>();
+        foreach (SwarmMember otherMember in shortList)
+        {
+            if (otherMember == member)
+                continue;
+            if (Vector3.Distance(member.GetPosition(), otherMember.GetPosition()) <= radius)
+            {
+                neighboursFound.Add(otherMember);
+            }
+        }
+        return neighboursFound;
+    }
+
     public List<Enemy> GetEnemies(SwarmMember member, float radius)
     {
         List<Enemy> returnEnemies = new List<Enemy>();
