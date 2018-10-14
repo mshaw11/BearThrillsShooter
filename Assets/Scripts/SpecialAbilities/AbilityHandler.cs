@@ -18,7 +18,6 @@ public class AbilityHandler : MonoBehaviour {
     private int currentAbility = 0;
     private void Start()
     {
-
         flameRingAbility = Instantiate(flameRingAbility);
         grenadeAbility = Instantiate(grenadeAbility);
         knockBackAbility = Instantiate(knockBackAbility);
@@ -39,19 +38,13 @@ public class AbilityHandler : MonoBehaviour {
 
     private void Update()
     {
-
-      
-            if (Input.GetAxis("Mouse ScrollWheel") > 0 && currentAbility < (abilities.Count -1))
-            {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && currentAbility < (abilities.Count -1))
+        {
             currentAbility = (currentAbility + 1);
-            }
-            if (Input.GetAxis("Mouse ScrollWheel") < 0 && currentAbility != 0)
-            {
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && currentAbility != 0)
+        {
             currentAbility = (currentAbility - 1);
-            }
-
+        }
     }
-
-
-
 }

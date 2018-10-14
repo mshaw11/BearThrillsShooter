@@ -19,9 +19,18 @@ public class Crosshairs : MonoBehaviour {
     Color originalDotColour;
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         transform.Rotate(Vector3.forward * 40 * Time.deltaTime);
-	}
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane groundPlane = new Plane(Vector3.back, Vector3.zero);
+        float rayDistance;
+
+        if (groundPlane.Raycast(ray, out rayDistance))
+        {
+            Vector2 point = ray.GetPoint(rayDistance);
+            transform.position = point;
+        }
+    }
 
     public void DetectTargets(Ray ray)
     {

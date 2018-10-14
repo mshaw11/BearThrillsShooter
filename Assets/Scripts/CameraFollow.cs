@@ -5,8 +5,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
 
-    [SerializeField]
-    private GameObject target;
+    private Member target;
 
     [SerializeField]
     private Vector3 offset = new Vector3(0, 0, -1);
@@ -14,11 +13,13 @@ public class CameraFollow : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //target = PlayerMovementController.player;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        //target = PlayerMovementController.GetPlayer().transform;
         if (target)
         {
             // Always Update to Exactly Targets Position + Offset

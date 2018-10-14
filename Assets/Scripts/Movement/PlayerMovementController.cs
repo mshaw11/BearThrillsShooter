@@ -27,6 +27,12 @@ public class PlayerMovementController : MonoBehaviour {
     public KeyCode dodgeCode;
     public KeyCode sprintCode;
 
+    [SerializeField]
+    private Crosshairs crosshairs;
+
+    [SerializeField]
+    private AbilityHandler abilityHandler;
+
     // Private - time to next dodge / current rotation
     private float nextDodgeTime;
     private Vector2 playerDirection;
@@ -44,7 +50,9 @@ public class PlayerMovementController : MonoBehaviour {
         {
             Debug.Log("Player reference is null in PlayerMovementController");
         }
-	}
+
+        abilityHandler = Instantiate(abilityHandler);
+    }
 
     // Update is called once per frame
     void Update ()
@@ -67,6 +75,11 @@ public class PlayerMovementController : MonoBehaviour {
     {
         SetPlayerRotation();
         SetPlayerVelocity();
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            abilityHandler.UseAbility(GetComponent<Collider2D>(), player.transform.position, crosshairs.transform.position);
+        }
     }
 
     private void SetPlayerRotation()
