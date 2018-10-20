@@ -57,3 +57,5 @@ MonoBehaviour:
     type: 2}
   knockBackAbility: {fileID: 1924906343157460, guid: 1d0ddf4d87fd1a04daca088be4741656,
     type: 2}
+  railGunAbility: {fileID: 1784093180390044, guid: 692c0e0a0db75c545a409639a7145eb3,
+    type: 2}

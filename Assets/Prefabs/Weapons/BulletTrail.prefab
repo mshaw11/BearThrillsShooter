@@ -54,7 +54,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 100
   range: 10
-  endPosition: {x: 0, y: 0, z: 0}
 --- !u!120 &120089031431625180
 LineRenderer:
   m_ObjectHideFlags: 1
