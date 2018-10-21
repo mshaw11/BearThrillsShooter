@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts;
 
-public class Enemy : MonoBehaviour {
+public abstract class BaseLifeform : MonoBehaviour {
 
     [SerializeField]
     private float health = 100;
-    private DamageType weakness = DamageType.PHYSICAL; 
+    private DamageType weakness = DamageType.PHYSICAL;
+    private DamageType strength = DamageType.PHYSICAL;
 
     public void takeDamage(float damage, DamageType damageType)
     {
@@ -21,13 +22,10 @@ public class Enemy : MonoBehaviour {
 
         if (health < 0)
         {
-            Die();
+            die();
         }
     }
 
-    private void Die ()
-    {
-        Destroy(gameObject);
-    }
+    protected abstract void die();
   
 }

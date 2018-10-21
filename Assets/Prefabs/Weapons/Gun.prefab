@@ -52,9 +52,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09058dff93909e54db5f38fb86010f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whatToHit:
-    serializedVersion: 2
-    m_Bits: 0
   bullet: {fileID: 1502886669798934, guid: 9e3d285e7a08b604aa78cf4d1433d6e2, type: 2}
   fireRate: 10
   damage: 1
