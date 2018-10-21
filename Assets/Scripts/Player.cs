@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     private Crosshairs crosshairs;
 
     [SerializeField]
-    private AbilityHandler AbilityHandler;
+    private AbilityHandler abilityH;
 
 
     private float nextJump;
@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        AbilityHandler = Instantiate(AbilityHandler);
+        abilityH = Instantiate(abilityH);
         rigidBody = GetComponent<Rigidbody2D>();
         nextJump = 0.0f;
         angle = 0.0f;
@@ -75,22 +75,11 @@ public class Player : MonoBehaviour
 
             rigidBody.velocity = new Vector2(horizontal, vertical);
         }
-
-        //Get ray from camera to ground plane
-        Ray ray = viewCamera.ScreenPointToRay(Input.mousePosition);
-        Plane groundPlane = new Plane(Vector3.back, Vector3.zero);
-        float rayDistance;
-
-        if (groundPlane.Raycast(ray, out rayDistance))
-        {
-            Vector2 point = ray.GetPoint(rayDistance);
-            crosshairs.transform.position = point;
-        }
         
         if (Input.GetMouseButtonDown(1))
         {
 
-            AbilityHandler.UseAbility(GetComponent<Collider2D>(), transform.position, crosshairs.transform.position);
+            abilityH.UseAbility(GetComponent<Collider2D>(), transform.position, crosshairs.transform.position);
         }
         
     }

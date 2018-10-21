@@ -44,7 +44,9 @@ public class PlayerMovementController : MonoBehaviour {
         {
             Debug.Log("Player reference is null in PlayerMovementController");
         }
-	}
+
+        
+    }
 
     // Update is called once per frame
     void Update ()
@@ -67,6 +69,7 @@ public class PlayerMovementController : MonoBehaviour {
     {
         SetPlayerRotation();
         SetPlayerVelocity();
+
     }
 
     private void SetPlayerRotation()
