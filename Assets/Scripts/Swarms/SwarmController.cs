@@ -13,7 +13,7 @@ public class SwarmController : MonoBehaviour {
     private SwarmMemberConfig config;
 
     void Start () {
-        Seeker seeker = GetComponent<Seeker>();
+        var seeker = GetComponent<Seeker>();
         seeker.StartPath(transform.position, target.position, OnPathComplete);
     }
 
@@ -21,6 +21,8 @@ public class SwarmController : MonoBehaviour {
     {
         var swarmPrefab = Instantiate(swarmControllerPrefab, swarmControllerPrefab.position, Quaternion.identity);
         var swarmController = swarmPrefab.GetComponent<SwarmController>();
+        var destinationSetter = swarmController.GetComponent<AIDestinationSetter>();
+        destinationSetter.target = target;
         swarmController.Init(spawnPosition, swarmCount, target, config);
         for (int i = 0; i < swarmCount; i++)
         {
@@ -29,7 +31,7 @@ public class SwarmController : MonoBehaviour {
         }
         return swarmController;
     }
-     
+
     private void Init(Transform spawnPosition, int swarmCount, Transform target, SwarmMemberConfig config)
     {
         this.transform.position = spawnPosition.position;
@@ -89,6 +91,7 @@ public class SwarmController : MonoBehaviour {
     {
         Debug.Log("Yay, we got a path back. Did it have an error? " + p.error);
     }
+
 }
 
 
