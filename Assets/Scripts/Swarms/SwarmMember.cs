@@ -12,9 +12,7 @@ public class SwarmMember : MonoBehaviour {
 
     Vector3 wanderTarget;
 
-
-
-    void Start()
+    private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.AddForce(new Vector3(Random.Range(-3, 3), Random.Range(-3, 3), 0));
