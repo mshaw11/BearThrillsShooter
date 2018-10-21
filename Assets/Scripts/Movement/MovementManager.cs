@@ -9,6 +9,13 @@ public class MovementManager : MonoBehaviour {
     public SquadMovementController squadController;
     public SquadOffsets offsets;
 
+
+    [SerializeField]
+    private Crosshairs crosshairs;
+
+    [SerializeField]
+    private AbilityHandler abilityHandler;
+
     // Key to change player
     public KeyCode changePlayer;
 
@@ -19,7 +26,9 @@ public class MovementManager : MonoBehaviour {
     {
         playerIndex = 0;
         offsets.SetArrangement(SquadOffsets.Arrangement.DIAMOND);
-	}
+
+        abilityHandler = Instantiate(abilityHandler);
+    }
 
     private void FixedUpdate()
     {
@@ -30,6 +39,11 @@ public class MovementManager : MonoBehaviour {
             squadController.members[playerIndex] = playerReference;
             offsets.player = playerController.player;
             playerIndex = (playerIndex += 1) % 3;
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            abilityHandler.UseAbility(GetComponent<Collider2D>(), playerController.player.transform.position, crosshairs.transform.position);
         }
     }
 
