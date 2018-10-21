@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114308469532565826}
   - component: {fileID: 114647514909887274}
   - component: {fileID: 114949300715668200}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Swarm Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}

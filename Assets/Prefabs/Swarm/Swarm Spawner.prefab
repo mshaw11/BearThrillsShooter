@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4896779598864414}
   - component: {fileID: 114059134397267946}
   - component: {fileID: 114329710832352304}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Swarm Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,15 +70,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxFOV: 120
-  maxAcceleration: 40
   maxVelocity: 25
   maxForce: 0
   pathfindPriority: 1
-  cohesionRadius: 10
   cohesionPriority: 1
-  alignmentRadius: 10
   alignmentPriority: 1
-  separationRadius: 5
   separationPriority: 1
-  avoidanceRadius: 40
   avoidancePriority: 1
+  cohesionRadius: 10
+  alignmentRadius: 10
+  separationRadius: 5
+  avoidanceRadius: 40
