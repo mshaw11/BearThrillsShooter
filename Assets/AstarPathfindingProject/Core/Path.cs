@@ -671,8 +671,8 @@ namespace Pathfinding {
 				return "";
 			}
 
-			// Get a cached string builder for this thread
-			System.Text.StringBuilder text = pathHandler.DebugStringBuilder;
+            // Get a cached string builder for this thread
+            System.Text.StringBuilder text = pathHandler.DebugStringBuilder;
 			text.Length = 0;
 
 			DebugStringPrefix(logMode, text);

@@ -34,22 +34,23 @@ public class MovementManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(changePlayer))
         {
-            Member playerReference = playerController.player;
+            Character playerReference = playerController.player;
             playerController.player = squadController.members[playerIndex];
             squadController.members[playerIndex] = playerReference;
             offsets.player = playerController.player;
             playerIndex = (playerIndex += 1) % 3;
         }
 
+
         if (Input.GetMouseButtonDown(1))
         {
             abilityHandler.UseAbility(GetComponent<Collider2D>(), playerController.player.transform.position, crosshairs.transform.position);
         }
-    }
 
-    // Update is called once per frame
-    void Update ()
-    {
-		
-	}
+        if (Input.GetButton("Fire1"))
+        {
+            playerController.player.attack(crosshairs.transform.position);
+        }
+
+    }
 }

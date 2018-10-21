@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
 
-    private Member target;
+    private Character target;
 
     [SerializeField]
     private Vector3 offset = new Vector3(0, 0, -1);

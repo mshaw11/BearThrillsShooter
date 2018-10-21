@@ -15,7 +15,7 @@ using UnityEngine;
 public class PlayerMovementController : MonoBehaviour {
 
     // Public - Player reference
-    public Member player;
+    public Character player;
 
     // Public - movement variables
     public float speedMultiplier;
@@ -54,12 +54,12 @@ public class PlayerMovementController : MonoBehaviour {
 		
 	}
 
-    public void SetPlayer(Member member)
+    public void SetPlayer(Character member)
     {
         player = member;
     }
 
-    public Member GetPlayer()
+    public Character GetPlayer()
     {
         return player;
     }
