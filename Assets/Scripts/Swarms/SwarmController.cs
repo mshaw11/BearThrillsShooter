@@ -89,6 +89,11 @@ public class SwarmController : MonoBehaviour {
     {
         Debug.Log("Yay, we got a path back. Did it have an error? " + p.error);
     }
+
+    public void MemberDied(SwarmMember member)
+    {
+        swarmMembers.Remove(member);
+    }
 }
 
 

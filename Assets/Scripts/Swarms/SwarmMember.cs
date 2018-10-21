@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class SwarmMember : MonoBehaviour {
+public class SwarmMember : Enemy {
 
     private Vector3 force;
     private Rigidbody2D rigidBody;
@@ -181,6 +181,12 @@ public class SwarmMember : MonoBehaviour {
         var swarmMember = swarmPrefab.GetComponent<SwarmMember>();
         swarmMember.Init(controller, config);
         return swarmMember;
+    }
+
+    protected override void die()
+    {
+        controller.MemberDied(this);
+        base.die();
     }
 }
 

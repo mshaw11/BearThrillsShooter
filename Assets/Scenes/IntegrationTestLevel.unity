@@ -324,7 +324,7 @@ Prefab:
         type: 2}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1346962021}
+      objectReference: {fileID: 0}
     - target: {fileID: 114059134397267946, guid: 6c7d843150c1f404588e1bb6bb65f39b,
         type: 2}
       propertyPath: swarmControllerPrefab
@@ -495,7 +495,7 @@ Prefab:
         type: 2}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1346962021}
+      objectReference: {fileID: 0}
     - target: {fileID: 114059134397267946, guid: 6c7d843150c1f404588e1bb6bb65f39b,
         type: 2}
       propertyPath: swarmControllerPrefab
@@ -39395,53 +39395,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!4 &1346962021 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4194206921178662, guid: 2b88fd21865fe5f46907a0d7487965b8,
-    type: 2}
-  m_PrefabInternal: {fileID: 1376163429}
---- !u!1001 &1376163429
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4092301215433642, guid: 2b88fd21865fe5f46907a0d7487965b8, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4092301215433642, guid: 2b88fd21865fe5f46907a0d7487965b8, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4092301215433642, guid: 2b88fd21865fe5f46907a0d7487965b8, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4092301215433642, guid: 2b88fd21865fe5f46907a0d7487965b8, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4092301215433642, guid: 2b88fd21865fe5f46907a0d7487965b8, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4092301215433642, guid: 2b88fd21865fe5f46907a0d7487965b8, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4092301215433642, guid: 2b88fd21865fe5f46907a0d7487965b8, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4092301215433642, guid: 2b88fd21865fe5f46907a0d7487965b8, type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2b88fd21865fe5f46907a0d7487965b8, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &1462602595
 GameObject:
   m_ObjectHideFlags: 0
@@ -39568,7 +39521,7 @@ Prefab:
         type: 2}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1346962021}
+      objectReference: {fileID: 0}
     - target: {fileID: 114059134397267946, guid: 6c7d843150c1f404588e1bb6bb65f39b,
         type: 2}
       propertyPath: swarmControllerPrefab
