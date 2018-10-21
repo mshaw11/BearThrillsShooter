@@ -27,7 +27,6 @@ public class AbilityHandler : MonoBehaviour {
         abilities.Add(knockBackAbility);
     }
 
-
     public void UseAbility(Collider2D playerCollider, Vector3 playerPosition, Vector3 crosshairPosition)
     {
         Debug.Log(abilities.Count);
