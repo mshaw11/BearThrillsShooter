@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts;
+using System;
 
-public class RayWeapon : MonoBehaviour
+public class RayWeapon : BaseWeapon
 {
     [SerializeField]
     private LayerMask whatToHit;
@@ -12,39 +13,17 @@ public class RayWeapon : MonoBehaviour
     [SerializeField]
     private float fireRate = 10;
     [SerializeField]
-    private float damage = 100;
-    [SerializeField]
-    private float range = 10;
-    [SerializeField]
     private float speed = 20;
     [SerializeField]
     private bool playerControlled = true;
-    
-    [SerializeField]
-    private DamageType damageType = DamageType.PHYSICAL;
  
     private float timeToFire = 0;
-    private bool projectileWeapon = false;
 
-
-    // Update is called once per frame
-    void Update()
+    private void Shoot()
     {
-        if (playerControlled)
-        {
-            //Shoot(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            Shoot(transform.right);
-        }
-        
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-    }
-
-
-    void Shoot(Vector2 targetPosition)
-    {
+        Vector2 targetPosition = transform.right;
         // If the fire button is held down and it is within fire rate
-        if (Input.GetButton("Fire1") && Time.time > timeToFire)
+        if (Time.time > timeToFire)
         {
             timeToFire = Time.time + 1 / fireRate;
 
@@ -80,5 +59,10 @@ public class RayWeapon : MonoBehaviour
 
         BulletRay bulletRay = bullet.GetComponent<BulletRay>();
         bulletRay.updateVariables(speed, range);
+    }
+
+    public override void attack(Vector2 targetPosition)
+    {
+        Shoot();
     }
 }

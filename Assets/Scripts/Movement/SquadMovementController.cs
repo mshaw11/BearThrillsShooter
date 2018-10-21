@@ -8,7 +8,7 @@ public class SquadMovementController : MonoBehaviour {
     public float speed;
 
     // Public - Squad references
-    public Member [] members = new Member[3];
+    public Character[] members = new Character[3];
 
     // Private - Squad offset controller
     public SquadOffsets squadOffsets;

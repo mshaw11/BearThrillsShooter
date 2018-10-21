@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts;
-public class ProjectileWeapon : MonoBehaviour
+using System;
+
+public class ProjectileWeapon : BaseWeapon
 {
 
     [SerializeField]
@@ -10,17 +12,11 @@ public class ProjectileWeapon : MonoBehaviour
     [SerializeField]
     private float fireRate = 10;
     [SerializeField]
-    private float damage = 1;
-    [SerializeField]
-    private float range = 10;
-    [SerializeField]
     private float speed = 20;
     [SerializeField]
     private bool playerControlled = true;
 
-    [SerializeField]
-    private DamageType damageType = DamageType.PHYSICAL;
- 
+
     private float timeToFire = 0;
     private bool projectileWeapon = false;
 
@@ -33,20 +29,12 @@ public class ProjectileWeapon : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (playerControlled)
-        {
-            Shoot(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        }
-        
-    }
-
-
-    void Shoot(Vector2 targetPosition)
+  
+    private void Shoot()
     {
         // If the fire button is held down and it is within fire rate
-        if (Input.GetButton("Fire1") && Time.time > timeToFire)
+       
+        if (Time.time > timeToFire)
         {
             timeToFire = Time.time + 1 / fireRate;
 
@@ -54,12 +42,17 @@ public class ProjectileWeapon : MonoBehaviour
             // Get mouse position in world co-ordinates
             CreateBullet(firePoint);
         }
-
+        
     }
 
     void CreateBullet(Vector2 firePoint)
     {
         BulletProjectile bulletProjectile = Instantiate(bullet, firePoint, transform.rotation).GetComponent<BulletProjectile>();
         bulletProjectile.UpdateVariables(speed, damage, range);
+    }
+
+    public override void attack(Vector2 targetPosition)
+    {
+        Shoot();
     }
 }

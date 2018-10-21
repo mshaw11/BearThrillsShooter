@@ -31,7 +31,7 @@ public class SquadOffsets : MonoBehaviour {
     private Direction direction;
 
     // Player to base offsets of
-    public Member player;
+    public Character player;
 
     // Keep current position of player
     private Vector2 playerPosition;
@@ -58,7 +58,7 @@ public class SquadOffsets : MonoBehaviour {
     public Vector2 [] memberThreeDiamondOffsets = new Vector2[4];
 
     // Store direction of movement
-    private Member.DirectionOfMovement directionMoving;
+    private Character.DirectionOfMovement directionMoving;
 
     // Use this for initialization
     void Start ()
@@ -73,32 +73,32 @@ public class SquadOffsets : MonoBehaviour {
     {
         switch (player.GetDirectionOfMovement())
         {
-            case Member.DirectionOfMovement.UP:
+            case Character.DirectionOfMovement.UP:
                 Debug.Log("UP");
                 timeMovingUp += Time.deltaTime;
                 timeMovingDown = 0;
                 timeMovingLeft = 0;
                 timeMovingRight = 0;
                 break;
-            case Member.DirectionOfMovement.DOWN:
+            case Character.DirectionOfMovement.DOWN:
                 timeMovingUp = 0;
                 timeMovingDown += Time.deltaTime;
                 timeMovingLeft = 0;
                 timeMovingRight = 0;
                 break;
-            case Member.DirectionOfMovement.LEFT:
+            case Character.DirectionOfMovement.LEFT:
                 timeMovingUp = 0;
                 timeMovingDown = 0;
                 timeMovingLeft += Time.deltaTime;
                 timeMovingRight = 0;
                break;
-            case Member.DirectionOfMovement.RIGHT:
+            case Character.DirectionOfMovement.RIGHT:
                 timeMovingUp = 0;
                 timeMovingDown = 0;
                 timeMovingLeft = 0;
                 timeMovingRight += Time.deltaTime;
               break;
-            case Member.DirectionOfMovement.NONE:
+            case Character.DirectionOfMovement.NONE:
                 timeMovingUp = 0;
                 timeMovingDown = 0;
                 timeMovingLeft = 0;
