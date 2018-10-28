@@ -6,6 +6,9 @@ public abstract class AbilityBase : MonoBehaviour {
 
     [SerializeField]
     private float cooldown = 0f;
+    [SerializeField]
+    private Sprite displayImage;
+
     private float timeToFire = 0;
 
     protected abstract void ability(Collider2D playerCollider, Vector3 playerPosition, Vector3 crosshairPosition);
@@ -19,5 +22,10 @@ public abstract class AbilityBase : MonoBehaviour {
             timeToFire = 0;
             ability(playerCollider, playerPosition, crosshairPosition);
         }
+    }
+
+    public Sprite getDisplayImage()
+    {
+        return displayImage;
     }
 }
