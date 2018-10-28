@@ -13,11 +13,15 @@ public class Character : BaseLifeform
     [SerializeField]
     private String characterName;
 
+    [SerializeField]
+    private AbilityBase ability;
+
     private Rigidbody2D rigidBody;
 
     public void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        ability = Instantiate(ability);
     }
 
     protected override void die()
@@ -33,7 +37,13 @@ public class Character : BaseLifeform
         }
     }
 
-   // ----------------- Movement of character -----------------------//
+    // ---------------- Usign abilities ----------------------------//
+    public void UseAbility(Collider2D playerCollider, Vector3 playerPosition, Vector3 crosshairPosition)
+    {
+        ability.useAbility(playerCollider, playerPosition, crosshairPosition);
+    }
+
+    // ----------------- Movement of character -----------------------//
 
     public enum DirectionOfMovement
     {
