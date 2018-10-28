@@ -9,6 +9,7 @@ public class SwarmMember : Enemy {
     private Rigidbody2D rigidBody;
     private SwarmController controller;
     private SwarmMemberConfig conf;
+    private Transform target;
 
     Vector3 wanderTarget;
 
@@ -23,15 +24,26 @@ public class SwarmMember : Enemy {
         this.controller = swarmController;
     }
 
-    private void Init(SwarmController controller, SwarmMemberConfig conf)
+    private void Init(SwarmController controller, SwarmMemberConfig conf, Transform target)
     {
         this.controller = controller;
         this.conf = conf;
+        this.target = target;
+        //Redundant but calling it explicitly
+        gameObject.layer = LayerMask.NameToLayer("Enemies");
     }
 
     private void FixedUpdate()
     {
-        rigidBody.AddForce(Combine());
+        if (Vector2.Distance(target.position, transform.position) > 5)
+        {
+            rigidBody.AddForce(MoveTowardsPlayer());
+        }
+        else
+        {
+            rigidBody.AddForce(AttackPlayer());
+        }
+
         //Limit force application
         if (rigidBody.velocity.magnitude > conf.maxVelocity)
         {
@@ -39,7 +51,12 @@ public class SwarmMember : Enemy {
         }
     }
 
-
+    protected Vector3 AttackPlayer()
+    {
+        Vector3 directionToPlayer = target.position - transform.position;
+        Vector3 attackForce = directionToPlayer.normalized * 10;
+        return attackForce;
+    }
     protected Vector3 FollowSwarmLeader()
     {
         var heading = (Vector2)controller.transform.position - rigidBody.position;
@@ -57,26 +74,6 @@ public class SwarmMember : Enemy {
         {
             if(IsInFOV(rigidBody.position))
             {
-                if (member == null)
-                {
-                    Debug.Log("Member is null!");
-                }
-                else
-                {
-                    if (member.rigidBody == null)
-                    {
-                        Debug.Log("rigid body is null!");
-                    }
-                    else
-                    {
-                        if (member.rigidBody.position == null)
-                        {
-                            Debug.Log("Position is null");
-                        }
-                    }
-                }
-
-
                 cohesionVector += (Vector3)member.rigidBody.position;
                 countMembers++;
             }
@@ -143,20 +140,45 @@ public class SwarmMember : Enemy {
         return neededVelocity - (Vector3)rigidBody.velocity;
     }
 
-    virtual protected Vector3 Combine()
+    virtual protected Vector3 MoveTowardsPlayer()
     {
-        var radii = new List<float>() { conf.cohesionRadius, conf.alignmentPriority, conf.separationPriority, conf.avoidancePriority };
+        var radii = new List<float>() { conf.cohesionRadius, conf.alignmentPriority, conf.separationPriority, conf.avoidancePriority};
         var maxRadius = radii.Max();
         var neighboursShortList = controller.GetNeighbours(this, maxRadius);
 
         Vector3 finalVec =
             conf.cohesionPriority * Cohesion(neighboursShortList) +
-            conf.pathfindPriority * FollowSwarmLeader() +
             conf.alignmentPriority * Alignment(neighboursShortList) +
             conf.separationPriority * Separation(neighboursShortList);
-            //conf.avoidancePriority * Avoidance();
-
+        //conf.avoidancePriority * Avoidance();
+        if (HasLineOfSightOnTarget())
+        {
+            //Attack
+            var targetDirection = Vector3.Normalize(target.position - transform.position);
+            finalVec += conf.pathfindPriority * targetDirection;
+        }
+        else
+        {
+            finalVec += conf.pathfindPriority* FollowSwarmLeader();
+        }
         return finalVec;
+    }
+
+    public bool HasLineOfSightOnTarget()
+    {
+        int layerMask = LayerMask.GetMask("Abilities", "Bullets", "Floor", "Enemies");
+        layerMask = ~layerMask;
+        var targetDirection = Vector3.Normalize(target.position - transform.position);
+        var maxDistance = 100.0f;
+        var hit = Physics2D.Raycast(transform.position, targetDirection, maxDistance, layerMask);
+        if(hit.collider != null)
+        {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Players"))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     float RandomBinomial()
@@ -174,12 +196,11 @@ public class SwarmMember : Enemy {
         return transform.position;
     }
 
-
-    static public SwarmMember CreateNew(Transform swarmMemberPrefab, SwarmController controller, SwarmMemberConfig config)
+    static public SwarmMember CreateNew(Transform swarmMemberPrefab, SwarmController controller, SwarmMemberConfig config, Transform target)
     {
         var swarmPrefab = Instantiate(swarmMemberPrefab, controller.transform.position, Quaternion.identity);
         var swarmMember = swarmPrefab.GetComponent<SwarmMember>();
-        swarmMember.Init(controller, config);
+        swarmMember.Init(controller, config, target);
         return swarmMember;
     }
 
@@ -188,6 +209,16 @@ public class SwarmMember : Enemy {
         controller.MemberDied(this);
         base.die();
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Players"))
+        {
+            var character = collision.gameObject.GetComponent<Character>();
+            character.takeDamage(10, Assets.Scripts.DamageType.PHYSICAL);
+        }
+    }
+
 }
 
 

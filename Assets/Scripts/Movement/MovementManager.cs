@@ -53,4 +53,16 @@ public class MovementManager : MonoBehaviour {
         }
 
     }
+
+    public List<Character> GetSquadMembers()
+    {
+        var squadAndPlayer = new List<Character>();
+        var squad = squadController.GetSquad();
+        squadAndPlayer.Add(playerController.GetPlayer());
+        foreach (var member in squad)
+        {
+            squadAndPlayer.Add(member);
+        }
+        return squadAndPlayer;
+    }
 }
