@@ -976,6 +976,46 @@ Prefab:
       propertyPath: speed
       value: 300
       objectReference: {fileID: 0}
+    - target: {fileID: 114134150120197064, guid: 8c5ce675e6749384f972ed34d5c994e4,
+        type: 2}
+      propertyPath: characterName
+      value: Matthew
+      objectReference: {fileID: 0}
+    - target: {fileID: 114134150120197064, guid: 8c5ce675e6749384f972ed34d5c994e4,
+        type: 2}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 1442239567}
+    - target: {fileID: 114650012846157178, guid: 8c5ce675e6749384f972ed34d5c994e4,
+        type: 2}
+      propertyPath: characterName
+      value: Is
+      objectReference: {fileID: 0}
+    - target: {fileID: 114650012846157178, guid: 8c5ce675e6749384f972ed34d5c994e4,
+        type: 2}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 778810870}
+    - target: {fileID: 114685043449454736, guid: 8c5ce675e6749384f972ed34d5c994e4,
+        type: 2}
+      propertyPath: characterName
+      value: A
+      objectReference: {fileID: 0}
+    - target: {fileID: 114685043449454736, guid: 8c5ce675e6749384f972ed34d5c994e4,
+        type: 2}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 456506386}
+    - target: {fileID: 114533439584127454, guid: 8c5ce675e6749384f972ed34d5c994e4,
+        type: 2}
+      propertyPath: characterName
+      value: Tool
+      objectReference: {fileID: 0}
+    - target: {fileID: 114533439584127454, guid: 8c5ce675e6749384f972ed34d5c994e4,
+        type: 2}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 646598368}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c5ce675e6749384f972ed34d5c994e4, type: 2}
   m_IsPrefabAsset: 0
