@@ -6,11 +6,14 @@ using Assets.Scripts;
 public abstract class BaseLifeform : MonoBehaviour {
 
     [SerializeField]
-    private float health = 100;
+    protected float health = 100;
+
+    [SerializeField]
+    protected float maxHealth = 100;
     private DamageType weakness = DamageType.PHYSICAL;
     private DamageType strength = DamageType.PHYSICAL;
 
-    public void takeDamage(float damage, DamageType damageType)
+    public virtual void takeDamage(float damage, DamageType damageType)
     {
 
         float damageMultiplier = 1.0f;
