@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts;
 
 public abstract class AbilityBase : MonoBehaviour {
 
+            
     [SerializeField]
     private float cooldown = 0f;
     [SerializeField]
     private Sprite displayImage;
+
+    public AbilityName currentAbility;
 
     private float timeToFire = 0;
 
@@ -26,6 +30,8 @@ public abstract class AbilityBase : MonoBehaviour {
 
     public Sprite getDisplayImage()
     {
+
         return displayImage;
     }
+
 }

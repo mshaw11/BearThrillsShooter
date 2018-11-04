@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Scripts;
 
 public class AbilityUI : MonoBehaviour {
 
@@ -27,12 +28,32 @@ public class AbilityUI : MonoBehaviour {
         abilityImage.GetComponent<Image>().color = new Color(0, 0, 0, 0.5f);
     }
 
-    public void SetAbility(int num)
+    public void SetAbility(AbilityName ab)
     {
-        Debug.Log("Ability: " + num);
+        Debug.Log("Ability: " + ab);
+
+        switch (ab)
+        {
+            case AbilityName.FLAME:
+                setActive(0);
+                break;
+            case AbilityName.GRENADE:
+                setActive(1);
+                break;
+            case AbilityName.KB:
+                setActive(2);
+                break;
+            case AbilityName.RG:
+                setActive(3);
+                break;
+        }
+    }
+
+    void setActive(int id)
+    {
         foreach (GameObject g in abilityUIObjs)
         {
-            if (abilityUIObjs.IndexOf(g) == num)
+            if (abilityUIObjs.IndexOf(g) == id)
             {
                 enableColor(g);
             }

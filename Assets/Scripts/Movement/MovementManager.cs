@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts;
 
 public class MovementManager : MonoBehaviour {
 
@@ -9,10 +10,8 @@ public class MovementManager : MonoBehaviour {
     public SquadMovementController squadController;
     public SquadOffsets offsets;
 
-
     [SerializeField]
     private Crosshairs crosshairs;
-
 
     [SerializeField]
     private AbilityUI uiAbility;
@@ -28,7 +27,7 @@ public class MovementManager : MonoBehaviour {
 	void Start ()
     {
         playerIndex = 0;
-        uiAbility.SetAbility(playerIndex);
+        uiAbility.SetAbility(playerController.player.GetAbility().currentAbility);
         offsets.SetArrangement(SquadOffsets.Arrangement.DIAMOND);
     }
 
@@ -39,7 +38,8 @@ public class MovementManager : MonoBehaviour {
         squadController.members[playerIndex] = playerReference;
         offsets.player = playerController.player;
         playerIndex = (newPlayerIndex) %  3;
-        uiAbility.SetAbility(playerIndex);
+
+        uiAbility.SetAbility(playerController.player.GetAbility().currentAbility);
     }
     private void FixedUpdate()
     {
@@ -53,7 +53,6 @@ public class MovementManager : MonoBehaviour {
             playerIndex = (playerIndex += 1) % 3;
         }
         */
-        
 
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && playerIndex < (squadSize - 1))
         {

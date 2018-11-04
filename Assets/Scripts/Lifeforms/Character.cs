@@ -75,6 +75,10 @@ public class Character : BaseLifeform
         NONE = 4
     }
 
+    public AbilityBase GetAbility()
+    {
+        return ability;
+    }
 
     Rigidbody2D GetRigidBody()
     {
