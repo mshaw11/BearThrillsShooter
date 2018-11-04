@@ -75,4 +75,14 @@ public class SquadMovementController : MonoBehaviour {
     {
 		
 	}
+
+    public List<Character> GetSquad()
+    {
+        List<Character> squadList = new List<Character>();
+        for (int i = 0; i < 3; i++)
+        {
+            squadList.Add(members[i]);
+        }
+            return squadList;
+    }
 }

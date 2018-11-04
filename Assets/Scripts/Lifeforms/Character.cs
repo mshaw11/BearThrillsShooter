@@ -25,8 +25,11 @@ public class Character : BaseLifeform
     public void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        ability = Instantiate(ability);
-
+        if (ability != null)
+        {
+            ability = Instantiate(ability);
+        }
+       
         if (healthBar != null)
         {
             healthBar.GetComponentInChildren<Text>().text = (characterName);
@@ -62,7 +65,11 @@ public class Character : BaseLifeform
     // ---------------- Usign abilities ----------------------------//
     public void UseAbility(Collider2D playerCollider, Vector3 playerPosition, Vector3 crosshairPosition)
     {
-        ability.useAbility(playerCollider, playerPosition, crosshairPosition);
+        if (ability != null)
+        {
+            ability.useAbility(playerCollider, playerPosition, crosshairPosition);
+        }
+        
     }
     // ----------------- Movement of character -----------------------//
 

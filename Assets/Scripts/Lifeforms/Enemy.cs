@@ -8,7 +8,11 @@ public class Enemy : BaseLifeform
 {
     protected override void die()
     {
-        GameObject.FindWithTag("KillCountUI").GetComponent<UITesting>().UpdateKillCount();
+        if (GameObject.FindWithTag("KillCountUI"))
+        {
+            GameObject.FindWithTag("KillCountUI").GetComponent<UITesting>().UpdateKillCount();
+        }
+        
         Destroy(gameObject);
     }
 }
