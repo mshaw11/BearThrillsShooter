@@ -15,7 +15,7 @@ public class MovementManager : MonoBehaviour {
     private Crosshairs crosshairs;
 
     private int playerIndex;
-
+    [SerializeField]
     private AbilityUI uiAbility;
 
     // Key to change player
