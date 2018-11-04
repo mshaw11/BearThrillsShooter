@@ -42,10 +42,6 @@ public class SwarmController : MonoBehaviour {
         this.characters = characters;
         this.config = config;
         swarmMembers = new List<SwarmMember>();
-
-
-
-
     }
 
     private Character FindClosestSquadMember()

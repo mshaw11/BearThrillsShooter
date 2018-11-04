@@ -11,12 +11,9 @@ public class SwarmMember : Enemy {
     private SwarmMemberConfig conf;
     private Transform target;
 
-    Vector3 wanderTarget;
-
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        rigidBody.AddForce(new Vector3(Random.Range(-3, 3), Random.Range(-3, 3), 0));
     }
 
     public void SetSwarmController(SwarmController swarmController)
@@ -29,32 +26,61 @@ public class SwarmMember : Enemy {
         this.controller = controller;
         this.conf = conf;
         this.target = target;
-        //Redundant but calling it explicitly
-        gameObject.layer = LayerMask.NameToLayer("Enemies");
+    }
+
+
+    private void LookAtDirection(Vector3 targetDirection)
+    {
+        var angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
+    private void LookAtPosition(Vector3 targetPosition)
+    {
+        var dir = targetPosition - transform.position;
+        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     private void FixedUpdate()
     {
-        if (Vector2.Distance(target.position, transform.position) > 5)
+        if (Vector2.Distance(target.position, transform.position) > conf.attackDistance)
         {
-            rigidBody.AddForce(MoveTowardsPlayer());
+            Vector3 swarmingForce = MoveTowardsPlayer();
+            rigidBody.AddForce(swarmingForce);
+            LookAtDirection(swarmingForce);
         }
         else
         {
-            rigidBody.AddForce(AttackPlayer());
+            Vector3 attackingForce = AttackPlayer();
+            rigidBody.AddForce(attackingForce);
+            LookAtDirection(attackingForce);
         }
-
         //Limit force application
         if (rigidBody.velocity.magnitude > conf.maxVelocity)
         {
             rigidBody.velocity = rigidBody.velocity.normalized * conf.maxVelocity;
         }
+
+
+
+        var targetPos = target.transform.position;
+        var dir = targetPos - transform.position;
+        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
+    private void SetRotation()
+    {
+        var dir = target.position - transform.position;
+        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     protected Vector3 AttackPlayer()
     {
         Vector3 directionToPlayer = target.position - transform.position;
-        Vector3 attackForce = directionToPlayer.normalized * 10;
+        Vector3 attackForce = directionToPlayer.normalized * conf.attackForce;
         return attackForce;
     }
     protected Vector3 FollowSwarmLeader()
@@ -121,19 +147,6 @@ public class SwarmMember : Enemy {
         return separateVector.normalized;
     }
 
-    //Vector3 Avoidance(List<SwarmMember> neighboursShortList)
-    //{
-    //    Vector3 avoidVector = new Vector3();
-    //    var enemyList = controller.GetEnemies(this, conf.avoidanceRadius);
-    //    if (enemyList.Count == 0)
-    //        return avoidVector;
-    //    foreach(var enemy in enemyList)
-    //    {
-    //        avoidVector += RunAway(enemy.rigidBody.position);
-    //    }
-    //    return avoidVector.normalized;
-    //}
-
     Vector3 RunAway(Vector3 target)
     {
         Vector3 neededVelocity = (((Vector3)rigidBody.position) - target).normalized * conf.maxForce;
@@ -164,13 +177,13 @@ public class SwarmMember : Enemy {
         return finalVec;
     }
 
-    public bool HasLineOfSightOnTarget()
+    bool HasLineOfSightOnTarget()
     {
         int layerMask = LayerMask.GetMask("Abilities", "Bullets", "Floor", "Enemies");
         layerMask = ~layerMask;
         var targetDirection = Vector3.Normalize(target.position - transform.position);
-        var maxDistance = 100.0f;
-        var hit = Physics2D.Raycast(transform.position, targetDirection, maxDistance, layerMask);
+
+        var hit = Physics2D.Raycast(transform.position, targetDirection, conf.maxLineOfSight, layerMask);
         if(hit.collider != null)
         {
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Players"))
@@ -215,13 +228,25 @@ public class SwarmMember : Enemy {
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Players"))
         {
             var character = collision.gameObject.GetComponent<Character>();
-            character.takeDamage(10, Assets.Scripts.DamageType.PHYSICAL);
+            character.takeDamage(conf.attackDamage, Assets.Scripts.DamageType.PHYSICAL);
         }
     }
 
 }
 
 
+//Vector3 Avoidance(List<SwarmMember> neighboursShortList)
+//{
+//    Vector3 avoidVector = new Vector3();
+//    var enemyList = controller.GetEnemies(this, conf.avoidanceRadius);
+//    if (enemyList.Count == 0)
+//        return avoidVector;
+//    foreach(var enemy in enemyList)
+//    {
+//        avoidVector += RunAway(enemy.rigidBody.position);
+//    }
+//    return avoidVector.normalized;
+//}
 
 //protected Vector3 Wander()
 //{
