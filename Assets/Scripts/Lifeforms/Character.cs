@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Assets.Scripts;
 using System;
 
@@ -16,12 +17,20 @@ public class Character : BaseLifeform
     [SerializeField]
     private AbilityBase ability;
 
+    [SerializeField]
+    private Slider healthBar;
+
     private Rigidbody2D rigidBody;
 
     public void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         ability = Instantiate(ability);
+
+        if (healthBar != null)
+        {
+            healthBar.GetComponentInChildren<Text>().text = (characterName);
+        }
     }
 
     protected override void die()
@@ -37,12 +46,24 @@ public class Character : BaseLifeform
         }
     }
 
+    
+    public override void  takeDamage(float damage, DamageType damageType)
+    {
+        base.takeDamage(damage, damageType);
+
+        // Update health bar info
+        if (healthBar != null)
+        {
+            healthBar.value = health / maxHealth;
+        }
+
+    }
+
     // ---------------- Usign abilities ----------------------------//
     public void UseAbility(Collider2D playerCollider, Vector3 playerPosition, Vector3 crosshairPosition)
     {
         ability.useAbility(playerCollider, playerPosition, crosshairPosition);
     }
-
     // ----------------- Movement of character -----------------------//
 
     public enum DirectionOfMovement
