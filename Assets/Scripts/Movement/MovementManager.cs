@@ -13,9 +13,13 @@ public class MovementManager : MonoBehaviour {
     [SerializeField]
     private Crosshairs crosshairs;
 
+
+    [SerializeField]
+    private AbilityUI uiAbility;
+
     // Key to change player
     // TODO Talk to Rob about player changing
-   // public KeyCode changePlayer;
+    // public KeyCode changePlayer;
 
     private int playerIndex;
     private const int squadSize = 4;
@@ -24,6 +28,7 @@ public class MovementManager : MonoBehaviour {
 	void Start ()
     {
         playerIndex = 0;
+        uiAbility.SetAbility(playerIndex);
         offsets.SetArrangement(SquadOffsets.Arrangement.DIAMOND);
     }
 
@@ -34,7 +39,7 @@ public class MovementManager : MonoBehaviour {
         squadController.members[playerIndex] = playerReference;
         offsets.player = playerController.player;
         playerIndex = (newPlayerIndex) %  3;
-
+        uiAbility.SetAbility(playerIndex);
     }
     private void FixedUpdate()
     {
@@ -71,4 +76,5 @@ public class MovementManager : MonoBehaviour {
         }
 
     }
+
 }

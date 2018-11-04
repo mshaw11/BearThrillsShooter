@@ -18,6 +18,5 @@ public class UITesting : MonoBehaviour
     {
         enemyCount = GameObject.FindGameObjectsWithTag("SpawnedEnemy").Length;
         numberEnemiesText.text = ("Enemies Remaining: " + enemyCount);
-
     }
 }

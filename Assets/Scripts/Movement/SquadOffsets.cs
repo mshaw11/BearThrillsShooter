@@ -74,7 +74,6 @@ public class SquadOffsets : MonoBehaviour {
         switch (player.GetDirectionOfMovement())
         {
             case Character.DirectionOfMovement.UP:
-                Debug.Log("UP");
                 timeMovingUp += Time.deltaTime;
                 timeMovingDown = 0;
                 timeMovingLeft = 0;
