@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts;
+
 
 public class MovementManager : MonoBehaviour {
 
@@ -9,42 +11,55 @@ public class MovementManager : MonoBehaviour {
     public SquadMovementController squadController;
     public SquadOffsets offsets;
 
-
     [SerializeField]
     private Crosshairs crosshairs;
 
-    [SerializeField]
-    private AbilityHandler abilityHandler;
+    private int playerIndex;
+
+    private AbilityUI uiAbility;
 
     // Key to change player
-    public KeyCode changePlayer;
+    // TODO Talk to Rob about player changing
+    // public KeyCode changePlayer;
 
-    private int playerIndex;
+    private const int squadSize = 4;
 
 	// Use this for initialization
 	void Start ()
     {
         playerIndex = 0;
         offsets.SetArrangement(SquadOffsets.Arrangement.DIAMOND);
-
-        abilityHandler = Instantiate(abilityHandler);
     }
 
+    private void changePlayer(int newPlayerIndex)
+    {
+        Character playerReference = playerController.player;
+        playerController.player = squadController.members[playerIndex];
+        squadController.members[playerIndex] = playerReference;
+        offsets.player = playerController.player;
+        playerIndex = (newPlayerIndex) %  3;
+
+        uiAbility.SetAbility(playerController.player.GetAbility().currentAbility);
+    }
     private void FixedUpdate()
     {
-        if (Input.GetKeyDown(changePlayer))
+        if (playerController.player.GetAbility() != null)
         {
-            Character playerReference = playerController.player;
-            playerController.player = squadController.members[playerIndex];
-            squadController.members[playerIndex] = playerReference;
-            offsets.player = playerController.player;
-            playerIndex = (playerIndex += 1) % 3;
+            uiAbility.SetAbility(playerController.player.GetAbility().currentAbility);
+        }
+        
+        offsets.SetArrangement(SquadOffsets.Arrangement.DIAMOND);
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && playerIndex < (squadSize - 1))
+        {
+            changePlayer(playerIndex + 1);
         }
 
+        
 
         if (Input.GetMouseButtonDown(1))
         {
-            abilityHandler.UseAbility(GetComponent<Collider2D>(), playerController.player.transform.position, crosshairs.transform.position);
+            playerController.player.UseAbility(GetComponent<Collider2D>(), playerController.player.transform.position, crosshairs.transform.position);
+
         }
 
         if (Input.GetButton("Fire1"))
@@ -65,4 +80,5 @@ public class MovementManager : MonoBehaviour {
         }
         return squadAndPlayer;
     }
+
 }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts;
 
 public class KnockBackAbility : AbilityBase {
    
@@ -17,7 +18,8 @@ public class KnockBackAbility : AbilityBase {
     private ContactFilter2D contactFilter;
     // Use this for initialization
     void Start () {
-       
+        currentAbility = AbilityName.KB;
+
         areaOfEffect = GameObject.FindWithTag("KnockBackCone").GetComponent<PolygonCollider2D>();
         if (areaOfEffect == null)
         {
