@@ -47,15 +47,24 @@ public class MovementManager : MonoBehaviour {
 
     public void changePlayer(int newPlayerIndex)
     {
-        Character playerReference = playerController.player;
-        playerReference.isControlled = false;
-        playerController.player = squadController.members[playerIndex];
-        squadController.members[playerIndex] = playerReference;
-        offsets.player = playerController.player;
+        if (playerIndex >= squadController.members.Count)
+        {
+            playerIndex = 0;
+        }
+        if (playerIndex <= squadController.members.Count && squadController.members.Count != 0)
+        {
 
-        playerIndex = (newPlayerIndex) % squadController.members.Count;
-        uiAbility.SetAbility(playerController.player.GetAbility().currentAbility);
-        playerController.player.isControlled = true;
+            Character playerReference = playerController.player;
+            playerReference.isControlled = false;
+            playerController.player = squadController.members[playerIndex];
+            squadController.members[playerIndex] = playerReference;
+            offsets.player = playerController.player;
+
+            playerIndex = (newPlayerIndex) % squadController.members.Count;
+            uiAbility.SetAbility(playerController.player.GetAbility().currentAbility);
+            playerController.player.isControlled = true;
+        }
+       
     }
 
     private void FixedUpdate()

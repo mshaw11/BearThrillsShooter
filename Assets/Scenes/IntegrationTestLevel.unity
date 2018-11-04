@@ -669,6 +669,16 @@ Prefab:
       propertyPath: maxHealth
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 114685043449454736, guid: 8c5ce675e6749384f972ed34d5c994e4,
+        type: 2}
+      propertyPath: health
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114685043449454736, guid: 8c5ce675e6749384f972ed34d5c994e4,
+        type: 2}
+      propertyPath: maxHealth
+      value: 1000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c5ce675e6749384f972ed34d5c994e4, type: 2}
   m_IsPrefabAsset: 0
