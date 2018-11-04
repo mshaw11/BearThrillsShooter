@@ -17,12 +17,13 @@ public class MovementManager : MonoBehaviour {
     [SerializeField]
     private AbilityUI uiAbility;
 
+    private int squadSize;
+
     // Key to change player
     // TODO Talk to Rob about player changing
     // public KeyCode changePlayer;
 
     private int playerIndex;
-    private const int squadSize = 4;
 
 	// Use this for initialization
 	void Start ()
@@ -32,38 +33,25 @@ public class MovementManager : MonoBehaviour {
         offsets.SetArrangement(SquadOffsets.Arrangement.DIAMOND);
     }
 
-    private void changePlayer(int newPlayerIndex)
+    public void changePlayer(int newPlayerIndex)
     {
         Character playerReference = playerController.player;
         playerController.player = squadController.members[playerIndex];
         squadController.members[playerIndex] = playerReference;
         offsets.player = playerController.player;
-        playerIndex = (newPlayerIndex) %  3;
+        playerIndex = (newPlayerIndex) %  squadController.members.Count;
         uiAbility.SetAbility(playerIndex);
     }
+
     private void FixedUpdate()
     {
-        /*
-        if (Input.GetKeyDown(changePlayer))
-        {
-            Character playerReference = playerController.player;
-            playerController.player = squadController.members[playerIndex];
-            squadController.members[playerIndex] = playerReference;
-            offsets.player = playerController.player;
-            playerIndex = (playerIndex += 1) % 3;
-        }
-        */
-        
-
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && playerIndex < (squadSize - 1))
+       
+       
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             changePlayer(playerIndex + 1);
         }
-        if (Input.GetAxis("Mouse ScrollWheel") < 0 && playerIndex != 0)
-        {
-            changePlayer(playerIndex - 1);
-        }
-        
+ 
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -72,7 +60,7 @@ public class MovementManager : MonoBehaviour {
 
         if (Input.GetButton("Fire1"))
         {
-            playerController.player.attack(crosshairs.transform.position);
+           playerController.player.attack(crosshairs.transform.position);
         }
 
     }

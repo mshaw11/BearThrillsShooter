@@ -35,9 +35,16 @@ public class Character : BaseLifeform
 
     protected override void die()
     {
+        MovementManager manager = (MovementManager) GameObject.FindGameObjectWithTag("movementManager").GetComponent<MovementManager>();
+        manager.squadController.playerDied(this);
+        manager.changePlayer(0);
+        if (healthBar != null)
+        {
+            healthBar.value = 0;
+        }
         Destroy(gameObject);
     }
-
+   
     public void attack(Vector2 targetPosition)
     {
         if (weapon != null)
