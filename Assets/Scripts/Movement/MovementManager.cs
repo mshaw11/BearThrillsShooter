@@ -58,10 +58,7 @@ public class MovementManager : MonoBehaviour {
         {
             changePlayer(playerIndex + 1);
         }
-        if (Input.GetAxis("Mouse ScrollWheel") < 0 && playerIndex != 0)
-        {
-            changePlayer(playerIndex - 1);
-        }
+
         
 
         if (Input.GetMouseButtonDown(1))
