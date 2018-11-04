@@ -61,6 +61,8 @@ public class SwarmMember : Enemy {
         {
             rigidBody.velocity = rigidBody.velocity.normalized * conf.maxVelocity;
         }
+
+        LookAtPosition(target.transform.position);
     }
 
     private void SetRotation()
