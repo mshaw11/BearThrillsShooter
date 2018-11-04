@@ -5,7 +5,6 @@ using Assets.Scripts;
 using System;
 
 public class Character : BaseLifeform
-
 {
     [SerializeField]
     private BaseWeapon weapon;
@@ -14,6 +13,9 @@ public class Character : BaseLifeform
     private String characterName;
 
     private Rigidbody2D rigidBody;
+
+    // Set Enemy target to attack
+    private GameObject enemyToTarget;
 
     public void Start()
     {
@@ -30,6 +32,14 @@ public class Character : BaseLifeform
         if (weapon != null)
         {
             weapon.attack(targetPosition);
+        }
+    }
+
+    public void attackEnemy()
+    {
+        if (enemyToTarget != null)
+        {
+            weapon.attack(enemyToTarget.transform.position);
         }
     }
 
@@ -88,6 +98,11 @@ public class Character : BaseLifeform
         }
     }
 
+    public GameObject getEnemyTargeted()
+    {
+        return enemyToTarget;
+    }
+
     public void SetVelocity(float horizontal, float vertical)
     {
         rigidBody.velocity = new Vector2(horizontal, vertical);
@@ -111,5 +126,10 @@ public class Character : BaseLifeform
     public void SetForceAtPlayerPosition(Vector2 force)
     {
         rigidBody.AddForceAtPosition(force, rigidBody.position);
+    }
+
+    public void SetEnemyToTarget(GameObject enemy)
+    {
+        enemyToTarget = enemy;
     }
 }
