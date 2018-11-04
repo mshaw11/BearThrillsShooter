@@ -19,7 +19,12 @@ public class SwarmMemberConfig : MonoBehaviour {
     public float separationRadius;
     public float avoidanceRadius;
 
+    public float attackDistance;
+    public float attackForce;
+    public float attackDamage;
+    public float maxLineOfSight;
 
+    
 
 
 

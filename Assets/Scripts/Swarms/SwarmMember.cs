@@ -9,13 +9,11 @@ public class SwarmMember : Enemy {
     private Rigidbody2D rigidBody;
     private SwarmController controller;
     private SwarmMemberConfig conf;
-
-    Vector3 wanderTarget;
+    private Transform target;
 
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        rigidBody.AddForce(new Vector3(Random.Range(-3, 3), Random.Range(-3, 3), 0));
     }
 
     public void SetSwarmController(SwarmController swarmController)
@@ -23,23 +21,69 @@ public class SwarmMember : Enemy {
         this.controller = swarmController;
     }
 
-    private void Init(SwarmController controller, SwarmMemberConfig conf)
+    private void Init(SwarmController controller, SwarmMemberConfig conf, Transform target)
     {
         this.controller = controller;
         this.conf = conf;
+        this.target = target;
+    }
+
+
+    private void LookAtDirection(Vector3 targetDirection)
+    {
+        var angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
+    private void LookAtPosition(Vector3 targetPosition)
+    {
+        var dir = targetPosition - transform.position;
+        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     private void FixedUpdate()
     {
-        rigidBody.AddForce(Combine());
-        //Limit force application
-        if (rigidBody.velocity.magnitude > conf.maxVelocity)
+        if (target != null)
         {
-            rigidBody.velocity = rigidBody.velocity.normalized * conf.maxVelocity;
+            if (Vector2.Distance(target.position, transform.position) > conf.attackDistance)
+            {
+                Vector3 swarmingForce = MoveTowardsPlayer();
+                rigidBody.AddForce(swarmingForce);
+                LookAtDirection(swarmingForce);
+            }
+            else
+            {
+                Vector3 attackingForce = AttackPlayer();
+                rigidBody.AddForce(attackingForce);
+                LookAtDirection(attackingForce);
+            }
+
+            //Limit force application
+            if (rigidBody.velocity.magnitude > conf.maxVelocity)
+            {
+                rigidBody.velocity = rigidBody.velocity.normalized * conf.maxVelocity;
+            }
+
+            LookAtPosition(target.transform.position);
         }
+
+
     }
 
+    private void SetRotation()
+    {
+        var dir = target.position - transform.position;
+        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
 
+    protected Vector3 AttackPlayer()
+    {
+        Vector3 directionToPlayer = target.position - transform.position;
+        Vector3 attackForce = directionToPlayer.normalized * conf.attackForce;
+        return attackForce;
+    }
     protected Vector3 FollowSwarmLeader()
     {
         var heading = (Vector2)controller.transform.position - rigidBody.position;
@@ -57,26 +101,6 @@ public class SwarmMember : Enemy {
         {
             if(IsInFOV(rigidBody.position))
             {
-                if (member == null)
-                {
-                    Debug.Log("Member is null!");
-                }
-                else
-                {
-                    if (member.rigidBody == null)
-                    {
-                        Debug.Log("rigid body is null!");
-                    }
-                    else
-                    {
-                        if (member.rigidBody.position == null)
-                        {
-                            Debug.Log("Position is null");
-                        }
-                    }
-                }
-
-
                 cohesionVector += (Vector3)member.rigidBody.position;
                 countMembers++;
             }
@@ -124,39 +148,51 @@ public class SwarmMember : Enemy {
         return separateVector.normalized;
     }
 
-    //Vector3 Avoidance(List<SwarmMember> neighboursShortList)
-    //{
-    //    Vector3 avoidVector = new Vector3();
-    //    var enemyList = controller.GetEnemies(this, conf.avoidanceRadius);
-    //    if (enemyList.Count == 0)
-    //        return avoidVector;
-    //    foreach(var enemy in enemyList)
-    //    {
-    //        avoidVector += RunAway(enemy.rigidBody.position);
-    //    }
-    //    return avoidVector.normalized;
-    //}
-
     Vector3 RunAway(Vector3 target)
     {
         Vector3 neededVelocity = (((Vector3)rigidBody.position) - target).normalized * conf.maxForce;
         return neededVelocity - (Vector3)rigidBody.velocity;
     }
 
-    virtual protected Vector3 Combine()
+    virtual protected Vector3 MoveTowardsPlayer()
     {
-        var radii = new List<float>() { conf.cohesionRadius, conf.alignmentPriority, conf.separationPriority, conf.avoidancePriority };
+        var radii = new List<float>() { conf.cohesionRadius, conf.alignmentPriority, conf.separationPriority, conf.avoidancePriority};
         var maxRadius = radii.Max();
         var neighboursShortList = controller.GetNeighbours(this, maxRadius);
 
         Vector3 finalVec =
             conf.cohesionPriority * Cohesion(neighboursShortList) +
-            conf.pathfindPriority * FollowSwarmLeader() +
             conf.alignmentPriority * Alignment(neighboursShortList) +
             conf.separationPriority * Separation(neighboursShortList);
-            //conf.avoidancePriority * Avoidance();
-
+        //conf.avoidancePriority * Avoidance();
+        if (HasLineOfSightOnTarget())
+        {
+            //Attack
+            var targetDirection = Vector3.Normalize(target.position - transform.position);
+            finalVec += conf.pathfindPriority * targetDirection;
+        }
+        else
+        {
+            finalVec += conf.pathfindPriority* FollowSwarmLeader();
+        }
         return finalVec;
+    }
+
+    bool HasLineOfSightOnTarget()
+    {
+        int layerMask = LayerMask.GetMask("Abilities", "Bullets", "Floor", "Enemies");
+        layerMask = ~layerMask;
+        var targetDirection = Vector3.Normalize(target.position - transform.position);
+
+        var hit = Physics2D.Raycast(transform.position, targetDirection, conf.maxLineOfSight, layerMask);
+        if(hit.collider != null)
+        {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Players"))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     float RandomBinomial()
@@ -174,12 +210,11 @@ public class SwarmMember : Enemy {
         return transform.position;
     }
 
-
-    static public SwarmMember CreateNew(Transform swarmMemberPrefab, SwarmController controller, SwarmMemberConfig config)
+    static public SwarmMember CreateNew(Transform swarmMemberPrefab, SwarmController controller, SwarmMemberConfig config, Transform target)
     {
         var swarmPrefab = Instantiate(swarmMemberPrefab, controller.transform.position, Quaternion.identity);
         var swarmMember = swarmPrefab.GetComponent<SwarmMember>();
-        swarmMember.Init(controller, config);
+        swarmMember.Init(controller, config, target);
         return swarmMember;
     }
 
@@ -188,9 +223,31 @@ public class SwarmMember : Enemy {
         controller.MemberDied(this);
         base.die();
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Players"))
+        {
+            var character = collision.gameObject.GetComponent<Character>();
+            character.takeDamage(conf.attackDamage, Assets.Scripts.DamageType.PHYSICAL);
+        }
+    }
+
 }
 
 
+//Vector3 Avoidance(List<SwarmMember> neighboursShortList)
+//{
+//    Vector3 avoidVector = new Vector3();
+//    var enemyList = controller.GetEnemies(this, conf.avoidanceRadius);
+//    if (enemyList.Count == 0)
+//        return avoidVector;
+//    foreach(var enemy in enemyList)
+//    {
+//        avoidVector += RunAway(enemy.rigidBody.position);
+//    }
+//    return avoidVector.normalized;
+//}
 
 //protected Vector3 Wander()
 //{

@@ -22,11 +22,16 @@ public class Character : BaseLifeform
 
     private Rigidbody2D rigidBody;
 
+    public bool isControlled = false;
+
     public void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        ability = Instantiate(ability);
-
+        if (ability != null)
+        {
+            ability = Instantiate(ability);
+        }
+       
         if (healthBar != null)
         {
             healthBar.GetComponentInChildren<Text>().text = (characterName);
@@ -36,8 +41,15 @@ public class Character : BaseLifeform
     protected override void die()
     {
         MovementManager manager = (MovementManager) GameObject.FindGameObjectWithTag("movementManager").GetComponent<MovementManager>();
+
+        if (isControlled)
+        {
+            manager.playerDied();
+        } 
+        
         manager.squadController.playerDied(this);
-        manager.changePlayer(0);
+        
+        
         if (healthBar != null)
         {
             healthBar.value = 0;
@@ -69,7 +81,11 @@ public class Character : BaseLifeform
     // ---------------- Usign abilities ----------------------------//
     public void UseAbility(Collider2D playerCollider, Vector3 playerPosition, Vector3 crosshairPosition)
     {
-        ability.useAbility(playerCollider, playerPosition, crosshairPosition);
+        if (ability != null)
+        {
+            ability.useAbility(playerCollider, playerPosition, crosshairPosition);
+        }
+        
     }
     // ----------------- Movement of character -----------------------//
 
@@ -82,6 +98,10 @@ public class Character : BaseLifeform
         NONE = 4
     }
 
+    public AbilityBase GetAbility()
+    {
+        return ability;
+    }
 
     Rigidbody2D GetRigidBody()
     {
