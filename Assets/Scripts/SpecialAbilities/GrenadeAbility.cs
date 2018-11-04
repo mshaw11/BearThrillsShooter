@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts;
 
 public class GrenadeAbility : AbilityBase
 {
@@ -8,6 +9,10 @@ public class GrenadeAbility : AbilityBase
     private GameObject grenade;
     [SerializeField]
     private float throwForce = 50f;
+    void Start()
+    {
+        currentAbility = AbilityName.GRENADE;
+    }
 
     protected override void ability(Collider2D playerCollider, Vector3 playerPosition, Vector3 crosshairPosition)
     {

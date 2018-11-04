@@ -12,4 +12,8 @@ namespace Assets.Scripts
         RADIATION,
         PHYSICAL
     }
+    public enum AbilityName
+    {
+        FLAME, GRENADE, KB, RG
+    }
 }
