@@ -41,7 +41,6 @@ public class MovementManager : MonoBehaviour {
             playerIndex = (playerIndex += 1) % 3;
         }
 
-
         if (Input.GetMouseButtonDown(1))
         {
             abilityHandler.UseAbility(GetComponent<Collider2D>(), playerController.player.transform.position, crosshairs.transform.position);
@@ -51,6 +50,5 @@ public class MovementManager : MonoBehaviour {
         {
             playerController.player.attack(crosshairs.transform.position);
         }
-
     }
 }

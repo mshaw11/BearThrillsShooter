@@ -43,7 +43,7 @@ public class Character : BaseLifeform
         }
     }
 
-   // ----------------- Movement of character -----------------------//
+    // ----------------- Movement of character -----------------------//
 
     public enum DirectionOfMovement
     {
@@ -53,7 +53,6 @@ public class Character : BaseLifeform
         DOWN = 3,
         NONE = 4
     }
-
 
     Rigidbody2D GetRigidBody()
     {
@@ -131,5 +130,40 @@ public class Character : BaseLifeform
     public void SetEnemyToTarget(GameObject enemy)
     {
         enemyToTarget = enemy;
+    }
+
+    // ----------------- Movement of character -----------------------//
+    private void FixedUpdate()
+    {
+        if (enemyToTarget != null)
+        {
+            Vector2 direction = new Vector2();
+            Vector3 enemyPosition = enemyToTarget.transform.position;
+        
+            direction.Set(enemyPosition.x - transform.position.x,
+                          enemyPosition.y - transform.position.y);
+
+            // what is the distance to the enemy squred?
+            float radius;
+            radius = (direction.x * direction.x) + (direction.y * direction.y);
+
+            if (radius < 100)
+            {
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                SetRotation(angle);
+                attackEnemy();
+            }else
+            {
+                // Reset enemy reference
+                enemyToTarget = null;
+            }
+
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 }

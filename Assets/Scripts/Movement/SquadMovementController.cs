@@ -16,8 +16,8 @@ public class SquadMovementController : MonoBehaviour {
     // Movement buffer allowance
     public float movementBuffer;
 
-    // radius to shoot
-    public float radius = 10;
+    // Distance to swarm members before assigning to members
+    float radius = 10;
 
     // Use this for initialization
     void Start ()
@@ -29,45 +29,23 @@ public class SquadMovementController : MonoBehaviour {
     {
         // Test shooting
         Collider2D[] Colliders;
-        Colliders = Physics2D.OverlapCircleAll(members[1].GetPosition(), radius);
         int i = 0;
-        for (i = 0; i < 3; i++)
+        for (i =0; i < 3; i++)
         {
-            Vector2 memberPosition = members[i].GetPosition();
-
-            if (string.Compare(Colliders[i].gameObject.name, "Swarm Member") == 1)
+            if (members[i].getEnemyTargeted() == null)
             {
-                //Vector2 direction = new Vector2();
-                //Vector3 enemyPosition;
-
-                //    if (members[i].getEnemyTargeted() != null)
-                //    {
-                //        enemyPosition = members[i].getEnemyTargeted().transform.position;
-                //    }
-                //    else
-                //    {
-                //        members[i].SetEnemyToTarget(Colliders[i].gameObject);
-                //        enemyPosition = Colliders[i].transform.position;
-                //    }
-
-                //    direction.Set(enemyPosition.x - memberPosition.x,
-                //                        enemyPosition.y - memberPosition.y);
-
-                //    // E.g. tan(angle) = opposite/adjacent
-                //    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-                //    if (i < 3)
-                //    {
-                //        members[i].SetRotation(angle);
-                //        members[i].attack(Colliders[i].transform.position);
-                //    }
-                //    else
-                //    {
-                //        break;
-                //    }
+                Colliders = Physics2D.OverlapCircleAll(members[i].GetPosition(), radius);
+                int j = 0;
+                for (j = 0; j < Colliders.Length; j++)
+                {
+                    if (string.Compare(Colliders[j].gameObject.name, "Swarm Member") == 1)
+                    {
+                        members[i].SetEnemyToTarget(Colliders[j].gameObject);
+                    }
+                }
             }
 
-            Vector2 memberPositionDifference = memberPosition - squadOffsets.GetMemberPosition(i);
+            Vector2 memberPositionDifference = members[i].GetPosition() - squadOffsets.GetMemberPosition(i);
             float memberXDifference = memberPositionDifference.x;
             float memberYDifference = memberPositionDifference.y;
 
@@ -77,7 +55,6 @@ public class SquadMovementController : MonoBehaviour {
                 if (memberXDifference > 0)
                 {
                     members[i].SetHorizontalVelocity(-speed);
-
                 }
                 else
                 {
