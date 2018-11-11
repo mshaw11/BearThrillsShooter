@@ -8,6 +8,8 @@ TagManager:
   - KnockBackCone
   - SpawnedEnemy
   - KillCountUI
+  - movementManager
+  - gameOverText
   layers:
   - Default
   - TransparentFX

@@ -8,25 +8,35 @@ public class SquadMovementController : MonoBehaviour {
     public float speed;
 
     // Public - Squad references
-    public Character[] members = new Character[3];
-
-    // Private - Squad offset controller
     public SquadOffsets squadOffsets;
 
+    public List<Character> members = new List<Character>();
+    // Private - Squad offset controller
+    
     // Movement buffer allowance
     public float movementBuffer;
-     
+
     // Use this for initialization
     void Start ()
     {
 		
 	}
 
+    public void playerDied(Character c)
+    {
+        members.Remove(c);
+    }
+ 
     private void FixedUpdate()
     {
         int i = 0;
-        for (i = 0; i < 3; i++)
+        for (i = 0; i < members.Count; i++)
         {
+            if (members[i] == null)
+            {
+                continue;
+            }
+
             Vector2 memberPositionDifference = members[i].GetPosition() - squadOffsets.GetMemberPosition(i);
             float memberXDifference = memberPositionDifference.x;
             float memberYDifference = memberPositionDifference.y;

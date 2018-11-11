@@ -22,6 +22,8 @@ public class Character : BaseLifeform
 
     private Rigidbody2D rigidBody;
 
+    public bool isControlled = false;
+
     public void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -38,9 +40,23 @@ public class Character : BaseLifeform
 
     protected override void die()
     {
+        MovementManager manager = (MovementManager) GameObject.FindGameObjectWithTag("movementManager").GetComponent<MovementManager>();
+
+        if (isControlled)
+        {
+            manager.playerDied();
+        } 
+        
+        manager.squadController.playerDied(this);
+        
+        
+        if (healthBar != null)
+        {
+            healthBar.value = 0;
+        }
         Destroy(gameObject);
     }
-
+   
     public void attack(Vector2 targetPosition)
     {
         if (weapon != null)

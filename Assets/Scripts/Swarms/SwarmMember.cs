@@ -44,25 +44,31 @@ public class SwarmMember : Enemy {
 
     private void FixedUpdate()
     {
-        if (Vector2.Distance(target.position, transform.position) > conf.attackDistance)
+        if (target != null)
         {
-            Vector3 swarmingForce = MoveTowardsPlayer();
-            rigidBody.AddForce(swarmingForce);
-            LookAtDirection(swarmingForce);
-        }
-        else
-        {
-            Vector3 attackingForce = AttackPlayer();
-            rigidBody.AddForce(attackingForce);
-            LookAtDirection(attackingForce);
-        }
-        //Limit force application
-        if (rigidBody.velocity.magnitude > conf.maxVelocity)
-        {
-            rigidBody.velocity = rigidBody.velocity.normalized * conf.maxVelocity;
+            if (Vector2.Distance(target.position, transform.position) > conf.attackDistance)
+            {
+                Vector3 swarmingForce = MoveTowardsPlayer();
+                rigidBody.AddForce(swarmingForce);
+                LookAtDirection(swarmingForce);
+            }
+            else
+            {
+                Vector3 attackingForce = AttackPlayer();
+                rigidBody.AddForce(attackingForce);
+                LookAtDirection(attackingForce);
+            }
+
+            //Limit force application
+            if (rigidBody.velocity.magnitude > conf.maxVelocity)
+            {
+                rigidBody.velocity = rigidBody.velocity.normalized * conf.maxVelocity;
+            }
+
+            LookAtPosition(target.transform.position);
         }
 
-        LookAtPosition(target.transform.position);
+
     }
 
     private void SetRotation()
