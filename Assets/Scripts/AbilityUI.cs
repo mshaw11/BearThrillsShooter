@@ -30,7 +30,6 @@ public class AbilityUI : MonoBehaviour {
 
     public void SetAbility(AbilityName ab)
     {
-        Debug.Log("Ability: " + ab);
 
         switch (ab)
         {

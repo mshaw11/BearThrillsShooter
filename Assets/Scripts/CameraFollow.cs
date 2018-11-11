@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
 
+    [SerializeField]
     private Character target;
 
     [SerializeField]
