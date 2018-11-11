@@ -8,26 +8,51 @@ using System;
 public class SwarmController : MonoBehaviour {
 
     private List<Character> characters;
-    private int swarmCount;
     private List<SwarmMember> swarmMembers;
     private SwarmMemberConfig config;
     private Transform currentTarget;
+    private Transform spawnPosition;
+    private Transform memberPrefab;
 
     void Start () {
         var seeker = GetComponent<Seeker>();
         seeker.StartPath(transform.position, currentTarget.position, OnPathComplete);
     }
 
-    public static SwarmController CreateNew(Transform spawnPosition, Transform swarmControllerPrefab, Transform swarmMemberPrefab, int swarmCount, List<Character> characters, SwarmMemberConfig config)
+    private void FixedUpdate()
+    {
+        if (currentTarget == null)
+        {
+            currentTarget = FindClosestSquadMember().transform;
+            foreach (var member in swarmMembers)
+            {
+                member.SetTarget(currentTarget);
+            }
+        }
+        //Reset and respawn
+        if (swarmMembers.Count < config.swarmRespawnSize)
+        {
+            transform.position = spawnPosition.position;
+            for (int i = swarmMembers.Count; i < config.swarmMaxLimit; i++)
+            {
+                var swarmMember = SwarmMember.CreateNew(memberPrefab, this, config, this.currentTarget);
+                swarmMembers.Add(swarmMember);
+            }
+        }
+    }
+
+    public static SwarmController CreateNew(Transform spawnPosition, Transform swarmControllerPrefab, Transform swarmMemberPrefab, List<Character> characters, SwarmMemberConfig config)
     {
         var swarmPrefab = Instantiate(swarmControllerPrefab, swarmControllerPrefab.position, Quaternion.identity);
         var swarmController = swarmPrefab.GetComponent<SwarmController>();
         var destinationSetter = swarmController.GetComponent<AIDestinationSetter>();
-        swarmController.Init(spawnPosition, swarmCount, characters, config);
+        swarmController.Init(spawnPosition, characters, config);
         var closestCharacter = swarmController.FindClosestSquadMember();
         destinationSetter.target = closestCharacter.transform;
         swarmController.currentTarget = closestCharacter.transform;
-        for (int i = 0; i < swarmCount; i++)
+        swarmController.spawnPosition = spawnPosition;
+        swarmController.memberPrefab = swarmMemberPrefab;
+        for (int i = 0; i < config.swarmMaxLimit; i++)
         {
             var swarmMember = SwarmMember.CreateNew(swarmMemberPrefab, swarmController, config, swarmController.currentTarget);
             swarmController.swarmMembers.Add(swarmMember);
@@ -35,10 +60,9 @@ public class SwarmController : MonoBehaviour {
         return swarmController;
     }
 
-    public void Init(Transform spawnPosition, int swarmCount, List<Character> characters, SwarmMemberConfig config)
+    public void Init(Transform spawnPosition, List<Character> characters, SwarmMemberConfig config)
     {
         this.transform.position = spawnPosition.position;
-        this.swarmCount = swarmCount;
         this.characters = characters;
         this.config = config;
         swarmMembers = new List<SwarmMember>();
@@ -50,6 +74,10 @@ public class SwarmController : MonoBehaviour {
         var closestDistance = Vector3.Distance(characters[0].transform.position, transform.position);
         foreach (var character in characters)
         {
+            if (character == null)
+            {
+                continue;
+            }
             if (Vector3.Distance(character.transform.position, this.transform.position) < closestDistance)
             {
                 closestCharacter = character;

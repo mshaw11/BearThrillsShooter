@@ -175,6 +175,87 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &544728283
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4214774611492242, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -18.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4214774611492242, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -29.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 4214774611492242, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.671875
+      objectReference: {fileID: 0}
+    - target: {fileID: 4214774611492242, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4214774611492242, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4214774611492242, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4214774611492242, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4214774611492242, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114471377284274188, guid: ca8ded5f58122e54c91c31bbd5465886,
+        type: 2}
+      propertyPath: movementManager
+      value: 
+      objectReference: {fileID: 1880734938}
+    - target: {fileID: 114278641649558374, guid: ca8ded5f58122e54c91c31bbd5465886,
+        type: 2}
+      propertyPath: attackDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114278641649558374, guid: ca8ded5f58122e54c91c31bbd5465886,
+        type: 2}
+      propertyPath: attackForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114278641649558374, guid: ca8ded5f58122e54c91c31bbd5465886,
+        type: 2}
+      propertyPath: attackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114278641649558374, guid: ca8ded5f58122e54c91c31bbd5465886,
+        type: 2}
+      propertyPath: maxLineOfSight
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114278641649558374, guid: ca8ded5f58122e54c91c31bbd5465886,
+        type: 2}
+      propertyPath: swarmRespawnSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114278641649558374, guid: ca8ded5f58122e54c91c31bbd5465886,
+        type: 2}
+      propertyPath: swarmMaxLimit
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1199103534646470, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
+      propertyPath: m_Name
+      value: Swarm Spawner (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &694511178
 GameObject:
   m_ObjectHideFlags: 0
@@ -2787,7 +2868,7 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1001 &771086863
+--- !u!1001 &882650643
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2800,7 +2881,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4214774611492242, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -9.8
+      value: -9.47
       objectReference: {fileID: 0}
     - target: {fileID: 4214774611492242, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2850,6 +2931,16 @@ Prefab:
         type: 2}
       propertyPath: maxLineOfSight
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114278641649558374, guid: ca8ded5f58122e54c91c31bbd5465886,
+        type: 2}
+      propertyPath: swarmRespawnSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114278641649558374, guid: ca8ded5f58122e54c91c31bbd5465886,
+        type: 2}
+      propertyPath: swarmMaxLimit
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1199103534646470, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
       propertyPath: m_Name
@@ -2994,77 +3085,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1001 &1113472484
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4214774611492242, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -18.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4214774611492242, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -25.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4214774611492242, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -0.671875
-      objectReference: {fileID: 0}
-    - target: {fileID: 4214774611492242, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4214774611492242, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4214774611492242, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4214774611492242, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4214774611492242, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114471377284274188, guid: ca8ded5f58122e54c91c31bbd5465886,
-        type: 2}
-      propertyPath: movementManager
-      value: 
-      objectReference: {fileID: 1880734938}
-    - target: {fileID: 114278641649558374, guid: ca8ded5f58122e54c91c31bbd5465886,
-        type: 2}
-      propertyPath: attackDistance
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114278641649558374, guid: ca8ded5f58122e54c91c31bbd5465886,
-        type: 2}
-      propertyPath: attackForce
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114278641649558374, guid: ca8ded5f58122e54c91c31bbd5465886,
-        type: 2}
-      propertyPath: attackDamage
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114278641649558374, guid: ca8ded5f58122e54c91c31bbd5465886,
-        type: 2}
-      propertyPath: maxLineOfSight
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1199103534646470, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
-      propertyPath: m_Name
-      value: Swarm Spawner (2)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &1204541250
 GameObject:
   m_ObjectHideFlags: 0
@@ -3222,6 +3242,16 @@ Prefab:
       propertyPath: maxLineOfSight
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 114278641649558374, guid: ca8ded5f58122e54c91c31bbd5465886,
+        type: 2}
+      propertyPath: swarmRespawnSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114278641649558374, guid: ca8ded5f58122e54c91c31bbd5465886,
+        type: 2}
+      propertyPath: swarmMaxLimit
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca8ded5f58122e54c91c31bbd5465886, type: 2}
   m_IsPrefabAsset: 0
@@ -3344,6 +3374,10 @@ Prefab:
         type: 2}
       propertyPath: memberOneDiamondOffsets.Array.data[3].y
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295782956190484, guid: 8c5ce675e6749384f972ed34d5c994e4, type: 2}
+      propertyPath: m_TagString
+      value: movementManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c5ce675e6749384f972ed34d5c994e4, type: 2}
@@ -39613,6 +39647,7 @@ GameObject:
   - component: {fileID: 1875464699}
   - component: {fileID: 1875464698}
   - component: {fileID: 1875464697}
+  - component: {fileID: 1875464700}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -39674,12 +39709,24 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1875464696}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.6, y: -12, z: -10}
+  m_LocalPosition: {x: 101.78, y: -12, z: -10}
   m_LocalScale: {x: 1.4, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1875464700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1875464696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bddeaea93238f854d8609cc4d08b0bf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _smoothTime: 1
 --- !u!114 &1880734938 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114975785680876002, guid: 8c5ce675e6749384f972ed34d5c994e4,

@@ -13,6 +13,9 @@ public class AreaOfEffect : MonoBehaviour {
     [SerializeField]
     private float delay = 0f;
 
+    [SerializeField]
+    private int stunFrames = 200;
+
 
     Camera viewCamera;
     public enum EffectType
@@ -63,11 +66,19 @@ public class AreaOfEffect : MonoBehaviour {
 
                 foreach (Collider2D nearbyObj in colliders)
                 {
-                    // Add force
-                    Rigidbody2D rb = nearbyObj.GetComponent<Rigidbody2D>();
-                    if (rb != null)
+
+                    if (nearbyObj.gameObject.gameObject.layer == LayerMask.NameToLayer("Enemies"))
                     {
-                        rb.AddExplosionForce(force, transform.position, radius);
+                        var swarmMember = nearbyObj.gameObject.GetComponent<SwarmMember>();
+                        if (swarmMember != null)
+                        {
+                            swarmMember.HitByAbility(stunFrames);
+                        }
+                        Rigidbody2D rb = nearbyObj.GetComponent<Rigidbody2D>();
+                        if (rb != null)
+                        {
+                            rb.AddExplosionForce(force, transform.position, radius);
+                        }
                     }
                 }
             }

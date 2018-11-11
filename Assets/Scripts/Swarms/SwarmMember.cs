@@ -9,7 +9,8 @@ public class SwarmMember : Enemy {
     private Rigidbody2D rigidBody;
     private SwarmController controller;
     private SwarmMemberConfig conf;
-    private Transform target;
+    private Transform target { get; set; }
+    private int hitByAbility;
 
     private void Awake()
     {
@@ -19,6 +20,11 @@ public class SwarmMember : Enemy {
     public void SetSwarmController(SwarmController swarmController)
     {
         this.controller = swarmController;
+    }
+
+    public void SetTarget(Transform target)
+    {
+        this.target = target;
     }
 
     private void Init(SwarmController controller, SwarmMemberConfig conf, Transform target)
@@ -46,6 +52,11 @@ public class SwarmMember : Enemy {
     {
         if (target != null)
         {
+            if (hitByAbility > 0)
+            {
+                hitByAbility--;
+                return;
+            }
             if (Vector2.Distance(target.position, transform.position) > conf.attackDistance)
             {
                 Vector3 swarmingForce = MoveTowardsPlayer();
@@ -67,8 +78,6 @@ public class SwarmMember : Enemy {
 
             LookAtPosition(target.transform.position);
         }
-
-
     }
 
     private void SetRotation()
@@ -231,6 +240,11 @@ public class SwarmMember : Enemy {
             var character = collision.gameObject.GetComponent<Character>();
             character.takeDamage(conf.attackDamage, Assets.Scripts.DamageType.PHYSICAL);
         }
+    }
+
+    public void HitByAbility(int framesToStun)
+    {
+        hitByAbility = framesToStun;
     }
 
 }
