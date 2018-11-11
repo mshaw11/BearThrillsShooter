@@ -4,24 +4,26 @@ using UnityEngine;
 
 public class SwarmMemberConfig : MonoBehaviour {
 
-    public float maxFOV;
-    public float maxVelocity;
-    public float maxForce;
+    public int swarmMaxLimit = 30;
+    public int swarmRespawnSize = 5;
 
-    public float pathfindPriority;
-    public float cohesionPriority;
-    public float alignmentPriority;
-    public float separationPriority;
-    public float avoidancePriority;
+    public float maxFOV = 120;
+    public float maxVelocity = 10;
+    public float maxForce = 30;
 
-    public float cohesionRadius;
-    public float alignmentRadius;
-    public float separationRadius;
-    public float avoidanceRadius;
+    public float pathfindPriority = 30;
+    public float cohesionPriority = 30;
+    public float alignmentPriority = 30;
+    public float separationPriority = 30;
+    public float avoidancePriority = 30;
 
+    public float cohesionRadius = 2;
+    public float alignmentRadius = 5;
+    public float separationRadius = 5;
+    public float avoidanceRadius = 40;
 
-
-
-
-
+    public float attackDistance = 5;
+    public float attackForce = 5;
+    public float attackDamage = 10;
+    public float maxLineOfSight = 100;
 }

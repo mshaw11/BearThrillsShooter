@@ -7,6 +7,9 @@ TagManager:
   - bulletTrail
   - KnockBackCone
   - SpawnedEnemy
+  - KillCountUI
+  - movementManager
+  - gameOverText
   layers:
   - Default
   - TransparentFX
@@ -21,7 +24,7 @@ TagManager:
   - Walls
   - Floor
   - Enemies
-  - 
+  - Players
   - 
   - 
   - 

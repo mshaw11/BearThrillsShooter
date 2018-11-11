@@ -8,16 +8,16 @@ public class SquadMovementController : MonoBehaviour {
     public float speed;
 
     // Public - Squad references
-    public Character[] members = new Character[3];
-
-    // Private - Squad offset controller
     public SquadOffsets squadOffsets;
 
+    public List<Character> members = new List<Character>();
+    // Private - Squad offset controller
+    
     // Movement buffer allowance
     public float movementBuffer;
 
     // Distance to swarm members before assigning to members
-    float radius = 10;
+    float radius = 100;
 
     // Use this for initialization
     void Start ()
@@ -25,13 +25,23 @@ public class SquadMovementController : MonoBehaviour {
 		
 	}
 
+    public void playerDied(Character c)
+    {
+        members.Remove(c);
+    }
+ 
     private void FixedUpdate()
     {
         // Test shooting
         Collider2D[] Colliders;
         int i = 0;
-        for (i =0; i < 3; i++)
+        for (i = 0; i < members.Count; i++)
         {
+            if (members[i] == null)
+            {
+                continue;
+            }
+
             if (members[i].getEnemyTargeted() == null)
             {
                 Colliders = Physics2D.OverlapCircleAll(members[i].GetPosition(), radius);
@@ -92,4 +102,14 @@ public class SquadMovementController : MonoBehaviour {
     {
 		
 	}
+
+    public List<Character> GetSquad()
+    {
+        List<Character> squadList = new List<Character>();
+        for (int i = 0; i < 3; i++)
+        {
+            squadList.Add(members[i]);
+        }
+            return squadList;
+    }
 }

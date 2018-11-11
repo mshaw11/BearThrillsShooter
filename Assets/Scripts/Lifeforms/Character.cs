@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Assets.Scripts;
 using System;
 
@@ -12,21 +13,52 @@ public class Character : BaseLifeform
     [SerializeField]
     private String characterName;
 
+    [SerializeField]
+    private AbilityBase ability;
+
+    [SerializeField]
+    private Slider healthBar;
+
     private Rigidbody2D rigidBody;
 
     // Set Enemy target to attack
     private GameObject enemyToTarget;
+    
+    public bool isControlled = false;
 
     public void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        if (ability != null)
+        {
+            ability = Instantiate(ability);
+        }
+       
+        if (healthBar != null)
+        {
+            healthBar.GetComponentInChildren<Text>().text = (characterName);
+        }
     }
 
     protected override void die()
     {
+        MovementManager manager = (MovementManager) GameObject.FindGameObjectWithTag("movementManager").GetComponent<MovementManager>();
+
+        if (isControlled)
+        {
+            manager.playerDied();
+        } 
+        
+        manager.squadController.playerDied(this);
+        
+        
+        if (healthBar != null)
+        {
+            healthBar.value = 0;
+        }
         Destroy(gameObject);
     }
-
+   
     public void attack(Vector2 targetPosition)
     {
         if (weapon != null)
@@ -42,7 +74,28 @@ public class Character : BaseLifeform
             weapon.attack(enemyToTarget.transform.position);
         }
     }
+    
+    public override void  takeDamage(float damage, DamageType damageType)
+    {
+        base.takeDamage(damage, damageType);
 
+        // Update health bar info
+        if (healthBar != null)
+        {
+            healthBar.value = health / maxHealth;
+        }
+
+    }
+
+    // ---------------- Usign abilities ----------------------------//
+    public void UseAbility(Collider2D playerCollider, Vector3 playerPosition, Vector3 crosshairPosition)
+    {
+        if (ability != null)
+        {
+            ability.useAbility(playerCollider, playerPosition, crosshairPosition);
+        }
+        
+    }
     // ----------------- Movement of character -----------------------//
 
     public enum DirectionOfMovement
@@ -52,6 +105,11 @@ public class Character : BaseLifeform
         UP = 2,
         DOWN = 3,
         NONE = 4
+    }
+
+    public AbilityBase GetAbility()
+    {
+        return ability;
     }
 
     Rigidbody2D GetRigidBody()
@@ -147,7 +205,7 @@ public class Character : BaseLifeform
             float radius;
             radius = (direction.x * direction.x) + (direction.y * direction.y);
 
-            if (radius < 100)
+            if (radius < 1000)
             {
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 SetRotation(angle);

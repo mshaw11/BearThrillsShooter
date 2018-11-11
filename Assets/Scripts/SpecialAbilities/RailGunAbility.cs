@@ -18,7 +18,7 @@ public class RailGunAbility : AbilityBase {
 
     public void Start()
     {
-
+        currentAbility = AbilityName.RG;
         this.lineRenderer = GetComponent<LineRenderer>();
         if (lineRenderer == null)
         {

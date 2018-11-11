@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using Assets.Scripts;
+
 
 public class MovementManager : MonoBehaviour {
 
@@ -9,46 +12,100 @@ public class MovementManager : MonoBehaviour {
     public SquadMovementController squadController;
     public SquadOffsets offsets;
 
-
     [SerializeField]
     private Crosshairs crosshairs;
 
-    [SerializeField]
-    private AbilityHandler abilityHandler;
-
-    // Key to change player
-    public KeyCode changePlayer;
-
     private int playerIndex;
 
-	// Use this for initialization
-	void Start ()
+    [SerializeField]
+    private AbilityUI uiAbility;
+
+    private int squadSize;
+
+    // Use this for initialization
+    void Start ()
     {
+
+        playerController.player.isControlled = true;
         playerIndex = 0;
         offsets.SetArrangement(SquadOffsets.Arrangement.DIAMOND);
+    }
 
-        abilityHandler = Instantiate(abilityHandler);
+    public void playerDied()
+    {
+        if (squadController.members.Count == 0)
+        {
+            // GAME OVER
+            GameObject.FindGameObjectWithTag("gameOverText").GetComponent<Text>().enabled = true;
+            Time.timeScale = 0;
+        }
+        else
+        {
+            changePlayer(0);
+        }
+       
+    }
+
+    public void changePlayer(int newPlayerIndex)
+    {
+        if (playerIndex >= squadController.members.Count)
+        {
+            playerIndex = 0;
+        }
+        if (playerIndex <= squadController.members.Count && squadController.members.Count != 0)
+        {
+
+            Character playerReference = playerController.player;
+            playerReference.isControlled = false;
+            playerController.player = squadController.members[playerIndex];
+            squadController.members[playerIndex] = playerReference;
+            offsets.player = playerController.player;
+
+            playerIndex = (newPlayerIndex) % squadController.members.Count;
+            uiAbility.SetAbility(playerController.player.GetAbility().currentAbility);
+            playerController.player.isControlled = true;
+        }
+       
     }
 
     private void FixedUpdate()
     {
-        if (Input.GetKeyDown(changePlayer))
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            Character playerReference = playerController.player;
-            playerController.player = squadController.members[playerIndex];
-            squadController.members[playerIndex] = playerReference;
-            offsets.player = playerController.player;
-            playerIndex = (playerIndex += 1) % 3;
+            changePlayer(playerIndex + 1);
+        }
+
+        if (playerController.player.GetAbility() != null)
+        {
+            uiAbility.SetAbility(playerController.player.GetAbility().currentAbility);
+        }
+        
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && playerIndex < (squadSize - 1))
+        {
+            changePlayer(playerIndex + 1);
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            abilityHandler.UseAbility(GetComponent<Collider2D>(), playerController.player.transform.position, crosshairs.transform.position);
+            playerController.player.UseAbility(GetComponent<Collider2D>(), playerController.player.transform.position, crosshairs.transform.position);
+
         }
 
         if (Input.GetButton("Fire1"))
         {
-            playerController.player.attack(crosshairs.transform.position);
+           playerController.player.attack(crosshairs.transform.position);
         }
+    }
+
+    public List<Character> GetSquadMembers()
+    {
+        var squadAndPlayer = new List<Character>();
+        var squad = squadController.GetSquad();
+        squadAndPlayer.Add(playerController.GetPlayer());
+        foreach (var member in squad)
+        {
+            squadAndPlayer.Add(member);
+        }
+        return squadAndPlayer;
     }
 }
