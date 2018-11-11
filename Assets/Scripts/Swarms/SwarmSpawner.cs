@@ -4,8 +4,6 @@ using UnityEngine;
 public class SwarmSpawner : MonoBehaviour {
 
     [SerializeField]
-    private int swarmCount;
-    [SerializeField]
     private SwarmMemberConfig config;
     [SerializeField]
     private Transform swarmControllerPrefab;
@@ -20,7 +18,7 @@ public class SwarmSpawner : MonoBehaviour {
     void Start()
     {
         var squadMembers = movementManager.GetSquadMembers();
-        var swarmController = SwarmController.CreateNew(transform, swarmControllerPrefab, swarmMemberPrefab, swarmCount, squadMembers, config);
+        var swarmController = SwarmController.CreateNew(transform, swarmControllerPrefab, swarmMemberPrefab, squadMembers, config);
     }   
 
 
