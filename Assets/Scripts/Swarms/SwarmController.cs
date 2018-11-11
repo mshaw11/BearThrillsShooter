@@ -7,6 +7,9 @@ using System;
 
 public class SwarmController : MonoBehaviour {
 
+
+    const int A_VERY_BIG_NUMBER = 100000;
+
     private List<Character> characters;
     private List<SwarmMember> swarmMembers;
     private SwarmMemberConfig config;
@@ -71,7 +74,7 @@ public class SwarmController : MonoBehaviour {
     private Character FindClosestSquadMember()
     {
         var closestCharacter = characters[0];
-        var closestDistance = Vector3.Distance(characters[0].transform.position, transform.position);
+        var closestDistance = A_VERY_BIG_NUMBER;
         foreach (var character in characters)
         {
             if (character == null)
