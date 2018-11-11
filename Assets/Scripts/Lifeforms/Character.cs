@@ -6,7 +6,6 @@ using Assets.Scripts;
 using System;
 
 public class Character : BaseLifeform
-
 {
     [SerializeField]
     private BaseWeapon weapon;
@@ -22,6 +21,9 @@ public class Character : BaseLifeform
 
     private Rigidbody2D rigidBody;
 
+    // Set Enemy target to attack
+    private GameObject enemyToTarget;
+    
     public bool isControlled = false;
 
     public void Start()
@@ -65,6 +67,13 @@ public class Character : BaseLifeform
         }
     }
 
+    public void attackEnemy()
+    {
+        if (enemyToTarget != null)
+        {
+            weapon.attack(enemyToTarget.transform.position);
+        }
+    }
     
     public override void  takeDamage(float damage, DamageType damageType)
     {
@@ -146,6 +155,11 @@ public class Character : BaseLifeform
         }
     }
 
+    public GameObject getEnemyTargeted()
+    {
+        return enemyToTarget;
+    }
+
     public void SetVelocity(float horizontal, float vertical)
     {
         rigidBody.velocity = new Vector2(horizontal, vertical);
@@ -169,5 +183,45 @@ public class Character : BaseLifeform
     public void SetForceAtPlayerPosition(Vector2 force)
     {
         rigidBody.AddForceAtPosition(force, rigidBody.position);
+    }
+
+    public void SetEnemyToTarget(GameObject enemy)
+    {
+        enemyToTarget = enemy;
+    }
+
+    // ----------------- Movement of character -----------------------//
+    private void FixedUpdate()
+    {
+        if (enemyToTarget != null)
+        {
+            Vector2 direction = new Vector2();
+            Vector3 enemyPosition = enemyToTarget.transform.position;
+        
+            direction.Set(enemyPosition.x - transform.position.x,
+                          enemyPosition.y - transform.position.y);
+
+            // what is the distance to the enemy squred?
+            float radius;
+            radius = (direction.x * direction.x) + (direction.y * direction.y);
+
+            if (radius < 1000)
+            {
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                SetRotation(angle);
+                attackEnemy();
+            }else
+            {
+                // Reset enemy reference
+                enemyToTarget = null;
+            }
+
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 }

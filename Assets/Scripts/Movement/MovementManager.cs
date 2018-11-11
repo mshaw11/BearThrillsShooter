@@ -16,6 +16,7 @@ public class MovementManager : MonoBehaviour {
     private Crosshairs crosshairs;
 
     private int playerIndex;
+
     [SerializeField]
     private AbilityUI uiAbility;
 
@@ -69,8 +70,6 @@ public class MovementManager : MonoBehaviour {
 
     private void FixedUpdate()
     {
-
-       
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             changePlayer(playerIndex + 1);
@@ -81,13 +80,11 @@ public class MovementManager : MonoBehaviour {
             uiAbility.SetAbility(playerController.player.GetAbility().currentAbility);
         }
         
-        offsets.SetArrangement(SquadOffsets.Arrangement.DIAMOND);
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && playerIndex < (squadSize - 1))
         {
             changePlayer(playerIndex + 1);
         }
 
-        
         if (Input.GetMouseButtonDown(1))
         {
             playerController.player.UseAbility(GetComponent<Collider2D>(), playerController.player.transform.position, crosshairs.transform.position);
@@ -98,7 +95,6 @@ public class MovementManager : MonoBehaviour {
         {
            playerController.player.attack(crosshairs.transform.position);
         }
-
     }
 
     public List<Character> GetSquadMembers()
@@ -112,5 +108,4 @@ public class MovementManager : MonoBehaviour {
         }
         return squadAndPlayer;
     }
-
 }

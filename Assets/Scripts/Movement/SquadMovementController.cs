@@ -16,6 +16,9 @@ public class SquadMovementController : MonoBehaviour {
     // Movement buffer allowance
     public float movementBuffer;
 
+    // Distance to swarm members before assigning to members
+    float radius = 100;
+
     // Use this for initialization
     void Start ()
     {
@@ -29,12 +32,27 @@ public class SquadMovementController : MonoBehaviour {
  
     private void FixedUpdate()
     {
+        // Test shooting
+        Collider2D[] Colliders;
         int i = 0;
         for (i = 0; i < members.Count; i++)
         {
             if (members[i] == null)
             {
                 continue;
+            }
+
+            if (members[i].getEnemyTargeted() == null)
+            {
+                Colliders = Physics2D.OverlapCircleAll(members[i].GetPosition(), radius);
+                int j = 0;
+                for (j = 0; j < Colliders.Length; j++)
+                {
+                    if (string.Compare(Colliders[j].gameObject.name, "Swarm Member") == 1)
+                    {
+                        members[i].SetEnemyToTarget(Colliders[j].gameObject);
+                    }
+                }
             }
 
             Vector2 memberPositionDifference = members[i].GetPosition() - squadOffsets.GetMemberPosition(i);
@@ -47,7 +65,6 @@ public class SquadMovementController : MonoBehaviour {
                 if (memberXDifference > 0)
                 {
                     members[i].SetHorizontalVelocity(-speed);
-
                 }
                 else
                 {

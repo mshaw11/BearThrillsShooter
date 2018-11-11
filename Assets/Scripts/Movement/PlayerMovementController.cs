@@ -45,7 +45,6 @@ public class PlayerMovementController : MonoBehaviour {
             Debug.Log("Player reference is null in PlayerMovementController");
         }
         UpdateCamera();
-
     }
 
     // Update is called once per frame
