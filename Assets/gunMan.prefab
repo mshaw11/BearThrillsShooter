@@ -94,16 +94,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e6a84aed0f0922419ba6c54dce6bd28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 100
+  range: 10
+  damageType: 3
   whatToHit:
     serializedVersion: 2
     m_Bits: 4294967295
   bullet: {fileID: 1104173975539666, guid: 2ffb8942b6f6f9240aae455a508c41ed, type: 2}
   fireRate: 10
-  damage: 100
-  range: 10
   speed: 20
   playerControlled: 1
-  damageType: 3
 --- !u!114 &114705597967548380
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,16 +115,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09058dff93909e54db5f38fb86010f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whatToHit:
-    serializedVersion: 2
-    m_Bits: 0
-  bullet: {fileID: 1502886669798934, guid: 9e3d285e7a08b604aa78cf4d1433d6e2, type: 2}
-  fireRate: 10
   damage: 1
   range: 10
+  damageType: 3
+  bullet: {fileID: 1502886669798934, guid: 9e3d285e7a08b604aa78cf4d1433d6e2, type: 2}
+  fireRate: 10
   speed: 20
   playerControlled: 1
-  damageType: 3
 --- !u!212 &212050893863610560
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -160,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bbbfdafdb1e121f43b47468e5c9535ef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6c49b0dc90e895a429f45bdff09e8f4a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -168,6 +165,6 @@ SpriteRenderer:
   m_Size: {x: 2.53, y: 2.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
