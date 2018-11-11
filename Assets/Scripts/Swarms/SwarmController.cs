@@ -18,6 +18,18 @@ public class SwarmController : MonoBehaviour {
         seeker.StartPath(transform.position, currentTarget.position, OnPathComplete);
     }
 
+    private void FixedUpdate()
+    {
+        if (currentTarget == null)
+        {
+            currentTarget = FindClosestSquadMember().transform;
+            foreach (var member in swarmMembers)
+            {
+                member.SetTarget(currentTarget);
+            }
+        }
+    }
+
     public static SwarmController CreateNew(Transform spawnPosition, Transform swarmControllerPrefab, Transform swarmMemberPrefab, int swarmCount, List<Character> characters, SwarmMemberConfig config)
     {
         var swarmPrefab = Instantiate(swarmControllerPrefab, swarmControllerPrefab.position, Quaternion.identity);
@@ -50,6 +62,10 @@ public class SwarmController : MonoBehaviour {
         var closestDistance = Vector3.Distance(characters[0].transform.position, transform.position);
         foreach (var character in characters)
         {
+            if (character == null)
+            {
+                continue;
+            }
             if (Vector3.Distance(character.transform.position, this.transform.position) < closestDistance)
             {
                 closestCharacter = character;

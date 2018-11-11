@@ -44,8 +44,8 @@ public class PlayerMovementController : MonoBehaviour {
         {
             Debug.Log("Player reference is null in PlayerMovementController");
         }
+        UpdateCamera();
 
-        
     }
 
     // Update is called once per frame
@@ -69,7 +69,13 @@ public class PlayerMovementController : MonoBehaviour {
     {
         SetPlayerRotation();
         SetPlayerVelocity();
+        UpdateCamera();
+    }
 
+    private void UpdateCamera()
+    {
+        var camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
+        camera.SetTarget(player.transform);
     }
 
     private void SetPlayerRotation()

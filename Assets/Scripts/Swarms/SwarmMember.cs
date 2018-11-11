@@ -9,7 +9,7 @@ public class SwarmMember : Enemy {
     private Rigidbody2D rigidBody;
     private SwarmController controller;
     private SwarmMemberConfig conf;
-    private Transform target;
+    private Transform target { get; set; }
 
     private void Awake()
     {
@@ -19,6 +19,11 @@ public class SwarmMember : Enemy {
     public void SetSwarmController(SwarmController swarmController)
     {
         this.controller = swarmController;
+    }
+
+    public void SetTarget(Transform target)
+    {
+        this.target = target;
     }
 
     private void Init(SwarmController controller, SwarmMemberConfig conf, Transform target)
@@ -67,8 +72,6 @@ public class SwarmMember : Enemy {
 
             LookAtPosition(target.transform.position);
         }
-
-
     }
 
     private void SetRotation()

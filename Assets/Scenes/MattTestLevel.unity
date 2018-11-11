@@ -3345,6 +3345,10 @@ Prefab:
       propertyPath: memberOneDiamondOffsets.Array.data[3].y
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1295782956190484, guid: 8c5ce675e6749384f972ed34d5c994e4, type: 2}
+      propertyPath: m_TagString
+      value: movementManager
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c5ce675e6749384f972ed34d5c994e4, type: 2}
   m_IsPrefabAsset: 0
@@ -39613,6 +39617,7 @@ GameObject:
   - component: {fileID: 1875464699}
   - component: {fileID: 1875464698}
   - component: {fileID: 1875464697}
+  - component: {fileID: 1875464700}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -39674,12 +39679,24 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1875464696}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.6, y: -12, z: -10}
+  m_LocalPosition: {x: 101.78, y: -12, z: -10}
   m_LocalScale: {x: 1.4, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1875464700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1875464696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bddeaea93238f854d8609cc4d08b0bf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _smoothTime: 1
 --- !u!114 &1880734938 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114975785680876002, guid: 8c5ce675e6749384f972ed34d5c994e4,
