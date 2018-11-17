@@ -17,7 +17,7 @@ public class SquadMovementController : MonoBehaviour {
     public float movementBuffer;
 
     // Distance to swarm members before assigning to members
-    float radius = 100;
+    float radius = 10;
 
     // Use this for initialization
     void Start ()
@@ -48,7 +48,7 @@ public class SquadMovementController : MonoBehaviour {
                 int j = 0;
                 for (j = 0; j < Colliders.Length; j++)
                 {
-                    if (string.Compare(Colliders[j].gameObject.name, "Swarm Member") == 1)
+                    if (string.Compare(Colliders[j].gameObject.name, "Swarm Member(Clone)") == 0)
                     {
                         members[i].SetEnemyToTarget(Colliders[j].gameObject);
                     }
