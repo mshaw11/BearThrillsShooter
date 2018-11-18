@@ -23,6 +23,9 @@ public class Character : BaseLifeform
 
     // Set Enemy target to attack
     private GameObject enemyToTarget;
+
+    // Set Player to follow when not attacking enemy
+    private Character player;
     
     public bool isControlled = false;
 
@@ -42,16 +45,16 @@ public class Character : BaseLifeform
 
     protected override void die()
     {
-        MovementManager manager = (MovementManager) GameObject.FindGameObjectWithTag("movementManager").GetComponent<MovementManager>();
+        MovementManager manager = (MovementManager)GameObject.FindGameObjectWithTag("movementManager").GetComponent<MovementManager>();
 
         if (isControlled)
         {
             manager.playerDied();
-        } 
-        
+        }
+
         manager.squadController.playerDied(this);
-        
-        
+
+
         if (healthBar != null)
         {
             healthBar.value = 0;
@@ -63,6 +66,7 @@ public class Character : BaseLifeform
     {
         if (weapon != null)
         {
+            Debug.Log("Weapon attacking");
             weapon.attack(targetPosition);
         }
     }
@@ -190,30 +194,54 @@ public class Character : BaseLifeform
         enemyToTarget = enemy;
     }
 
+    public void SetPlayer(Character playerToTarget)
+    {
+        player = playerToTarget;
+    }
+
+    public void RotateTowards(Vector2 position)
+    {
+        Vector2 direction = new Vector2();
+    
+        direction.Set(position.x - transform.position.x,
+                      position.y - transform.position.y);
+
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        SetRotation(angle);
+    }
+
     // ----------------- Movement of character -----------------------//
     private void FixedUpdate()
     {
-        if (enemyToTarget != null)
+        if (!isControlled)
         {
-            Vector2 direction = new Vector2();
-            Vector3 enemyPosition = enemyToTarget.transform.position;
-        
-            direction.Set(enemyPosition.x - transform.position.x,
-                          enemyPosition.y - transform.position.y);
-
-            // what is the distance to the enemy squred?
-            float radius;
-            radius = (direction.x * direction.x) + (direction.y * direction.y);
-
-            if (radius < 1000)
+            if (enemyToTarget != null)
             {
+                Vector2 direction = new Vector2();
+                Vector3 enemyPosition = enemyToTarget.transform.position;
+            
+                direction.Set(enemyPosition.x - transform.position.x,
+                              enemyPosition.y - transform.position.y);
+
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                SetRotation(angle);
-                attackEnemy();
-            }else
+
+                // what is the distance to the enemy squred?
+                float radius;
+                radius = (direction.x * direction.x) + (direction.y * direction.y);
+
+                if (radius < 100)
+                {
+                    SetRotation(angle);
+                    attackEnemy();
+                }else
+                {
+                    // Reset enemy reference
+                    enemyToTarget = null;
+                }
+            } else
             {
-                // Reset enemy reference
-                enemyToTarget = null;
+                RotateTowards(player.GetPosition());
             }
 
         }

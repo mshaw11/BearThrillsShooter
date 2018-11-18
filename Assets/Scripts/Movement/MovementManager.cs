@@ -25,10 +25,14 @@ public class MovementManager : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-
         playerController.player.isControlled = true;
         playerIndex = 0;
         offsets.SetArrangement(SquadOffsets.Arrangement.DIAMOND);
+
+        for (int i = 0; i < squadController.members.Count; i++)
+        {
+            squadController.members[i].SetPlayer(playerController.player);
+        }
     }
 
     public void playerDied()
@@ -43,18 +47,17 @@ public class MovementManager : MonoBehaviour {
         {
             changePlayer(0);
         }
-       
     }
 
     public void changePlayer(int newPlayerIndex)
     {
-        if (playerIndex >= squadController.members.Count)
+        int memberCount = squadController.members.Count;
+        if (playerIndex >= memberCount)
         {
             playerIndex = 0;
         }
-        if (playerIndex <= squadController.members.Count && squadController.members.Count != 0)
+        if (playerIndex <= memberCount && memberCount != 0)
         {
-
             Character playerReference = playerController.player;
             playerReference.isControlled = false;
             playerController.player = squadController.members[playerIndex];
@@ -62,8 +65,18 @@ public class MovementManager : MonoBehaviour {
             offsets.player = playerController.player;
 
             playerIndex = (newPlayerIndex) % squadController.members.Count;
-            uiAbility.SetAbility(playerController.player.GetAbility().currentAbility);
             playerController.player.isControlled = true;
+            playerController.player.SetEnemyToTarget(null);
+
+            for (int i = 0; i < memberCount; i++)
+            {
+                squadController.members[i].SetPlayer(playerController.player);
+            }
+
+            if (uiAbility != null)
+            {
+                uiAbility.SetAbility(playerController.player.GetAbility().currentAbility);
+            }
         }
        
     }
@@ -75,7 +88,7 @@ public class MovementManager : MonoBehaviour {
             changePlayer(playerIndex + 1);
         }
 
-        if (playerController.player.GetAbility() != null)
+        if (playerController.player.GetAbility() != null && uiAbility != null)
         {
             uiAbility.SetAbility(playerController.player.GetAbility().currentAbility);
         }
@@ -88,10 +101,9 @@ public class MovementManager : MonoBehaviour {
         if (Input.GetMouseButtonDown(1))
         {
             playerController.player.UseAbility(GetComponent<Collider2D>(), playerController.player.transform.position, crosshairs.transform.position);
-
         }
 
-        if (Input.GetButton("Fire1"))
+        if (playerController.player.GetAbility() != null && Input.GetMouseButton(0))
         {
            playerController.player.attack(crosshairs.transform.position);
         }
